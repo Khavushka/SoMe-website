@@ -4,4 +4,23 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    header
+      nav.navigation
+        ul.menu
+          li
+            a(href="/") Home
+          li
+            a(href="/register") Register
+          if authenticated
+            if admin
+              li
+                a(href="/") Follow
+            li
+              a(href="/") Knap
+            li
+              a(href="/") Knap
+            li 
+              a(href="/logout") Logout
+          if !authenticated
+    main
     block content

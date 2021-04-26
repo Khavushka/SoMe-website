@@ -4,14 +4,38 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+const mongoose = require('mongoose');
+
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+
+// requires the model with Passport-Local Mongoose plugged in
+const userSchema = require('./models/userSchema');
+
+app.use(passport.initialize());
+app.use(passport.session());
+// use static authenticate method of model in LocalStrategy
+passport.use(new LocalStrategy(userSchema.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(userSchema.serializeUser());
+passport.deserializeUser(userSchema.deserializeUser());
+
+
+//mongoose connection//
+mongoose.connect('mongodb://localhost/some', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    })
+    .then( function() { console.log('mongoose connection open'); })
+    .catch( function(err) { console.error(err); });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-//Passport init
-// app.use(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
