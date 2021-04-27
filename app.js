@@ -1,28 +1,18 @@
+//fra Example A.270. Setup file app.js
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session');
+
+/* part I from Traversy video */
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
 const mongoose = require('mongoose');
 
-const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
-
-// requires the model with Passport-Local Mongoose plugged in
-//const userSchema = require('./models/userSchema');
-
-//app.use(passport.initialize());
-//app.use(passport.session());
-// use static authenticate method of model in LocalStrategy
-passport.use(new LocalStrategy(userSchema.authenticate()));
-
-// use static serialize and deserialize of model for passport session support
-passport.serializeUser(userSchema.serializeUser());
-passport.deserializeUser(userSchema.deserializeUser());
-
-
-//mongoose connection//
+//const db = require('./config/keys').mongoURI;
 mongoose.connect('mongodb://localhost/some', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -30,23 +20,49 @@ mongoose.connect('mongodb://localhost/some', {
     })
     .then( function() { console.log('mongoose connection open'); })
     .catch( function(err) { console.error(err); });
+/* end Traversy */
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.locals.pretty = app.get('env') === 'development';       // pretty print html
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(session({secret: 'OMG', resave: true, saveUninitialized: true})); 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* part II from Traversy Video */
+app.use(session(                        // setup session
+    {
+        secret: '998537qporhgpfangæ143+575?)(%lfjgaæ',  // footprints of the keyboard cat
+        resave: true,
+        saveUninitialized: true
+    }));
+
+// Passport middleware
+app.use(passport.initialize());         // init passport
+app.use(passport.session());            // connect passport and sessions
+require('./config/passport')(passport);
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+/* end Traversy */
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

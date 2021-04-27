@@ -9,7 +9,7 @@ const yadaSchema = mongoose.Schema({
         type: Date,                         // if value invalid, force to start UNIX era
         default: Date.now 
     },
-    content: { type: String, required: true, unique: true },
+    content: { type: String, required: true},
 });
 
 module.exports = mongoose.model('Yada', yadaSchema);

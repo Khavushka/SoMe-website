@@ -30,7 +30,7 @@ exports.postUsers = async function (req) { // Register users
     let user = new User({                     // create object in db-format
         realname: req.body.realname,
         email: req.body.email,
-        handle: req.body.handle,
+        uid: req.body.uid,
         password: req.body.password
     });
     /*let pwd = await bcrypt.hash(req.body.password, 10);

@@ -9,7 +9,7 @@ exports.getLogin = async function (que, sort) {
 	let success = false;
     /*if (sort === null)
         sort = {sort: {name: 1}};*/
-    try {
+    /*try {
         /*let users = await mon.retrieve(dbServer, dbName, User, que, sort); // await er asynkront og venter, til den får info
 		console.log(users);*/
 
@@ -33,7 +33,6 @@ exports.getLogin = async function (que, sort) {
 				return success;
 			}
 		
-		}catch(e) {
+		} catch(e) {
     	console.log(e.message);
     }
-}
