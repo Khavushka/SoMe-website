@@ -6,11 +6,11 @@ block content
             p= tf
         else
                 form(id='' action='/' method='post')
-                        div
-                                div
+                        div.login-wrap
+                                div.login-html
                                                 div
                                                         div User Email
                                                                 input(type='email' name='email' required)
                                                         div Password
                                                                 input(type='password' name='password' required)
-                                                        input.button(type='submit' value='Go')
+                                                        input(type='submit' value='Go')

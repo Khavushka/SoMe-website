@@ -6,21 +6,21 @@ block content
     form(id='register' action='/register' method='post')
         table
             tr
-                td Realname
+                td Name
                 td
                     input(type='text' name='realname' required)
             tr
-                td Handle
+                td Username
                 td
                     input(type='text' name='handle' required)
             tr
                 td Password
                 td
-                    input(type='text' name='password' required)
+                    input(type='Password' name='password' placeholder="Password" required)
             tr
-                td Password 
+                td Confirm Password 
                 td
-                    input(type='text' name='password' required)
+                    input(type='Password' name='password' placeholder="Confirm Password" required)
             tr
                 td Email
                 td
@@ -28,4 +28,4 @@ block content
             tr
                 td
                 td
-                    input(type='submit' value='Go')
+                    input(type='submit' value='Send')
