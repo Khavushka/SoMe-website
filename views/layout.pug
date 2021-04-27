@@ -1,26 +1,29 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title.title
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/stylesheets/style.css")
   body
     header
-      nav.navigation
-        ul.menu
-          li
-            a(href="/") Home
-          li
-            a(href="/users/register") Register
-          if authenticated
-            if admin
-              li
-                a(href="/") Follow
-            li
-              a(href="/") Knap
-            li
-              a(href="/") Knap
-            li 
-              a(href="/logout") Logout
-          if !authenticated
+        nav
+            ul
+                li
+                    a(href='/') Home
+                if !user
+                    li
+                        a(href='/users/login') Login
+                    li
+                        a(href='/users/register') Register
+                if user
+                    li
+                        a(href="/dashboard") Insiders
+
+                    li
+                        a(href='/users/logout') Logout
     main
-    block content
+        block content
+    footer
+        div(id='cpy')
+        div kilroy was here

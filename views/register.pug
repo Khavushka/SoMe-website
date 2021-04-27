@@ -1,31 +1,37 @@
 extends layout
 
 block content
-    h1= title
-    p Please register
-    form(id='register' action='/register' method='post')
-        table
-            tr
-                td Name
-                td
-                    input(type='text' name='realname' required)
-            tr
-                td Username
-                td
-                    input(type='text' name='handle' required)
-            tr
-                td Password
-                td
-                    input(type='Password' name='password' placeholder="Password" required)
-            tr
-                td Confirm Password 
-                td
-                    input(type='Password' name='password' placeholder="Confirm Password" required)
-            tr
-                td Email
-                td
-                    input(type='text' name='email' required)
-            tr
-                td
-                td
-                    input(type='submit' value='Send')
+    section
+        h1 Please enter your details to register.
+        if errors != undefined && errors.length != 0
+            each error in errors
+                div(role='alert' id='a1') #{error.msg}
+        if success_msg != ''
+            div(role='alert' id='a2') #{success_msg}
+        if error_msg != ''
+            div(role='alert' id='a3') #{error_msg}
+        if error != ''
+            div(role='alert' id='a4') #{error}
+        form(method='post' action='/users/register')
+            div.sign-up
+                div.tab Sign Up
+                    div.sign-up-htm
+                            div.group
+                                div
+                                    label.label Name
+                                        input(type='text' minlength='2' name='name' required)
+                                div
+                                    label.label Username
+                                        input.input(type='text' minlength='2' name='uid' required)
+                                div
+                                    label.label Email
+                                        input.input(type='email' minlength='6' name='email' required)
+                                div
+                                    label.label Password
+                                        input.input(type='password' minlength='4' name='password' required)
+                                div
+                                    label.label Repeat password
+                                        input.input(type='password' minlength='4' name='passwordr' required)
+                                div
+                                    input.button(type='submit' value='Sign Up')
+                                div.hr

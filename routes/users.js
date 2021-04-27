@@ -10,9 +10,9 @@ router.get('/register', forwardAuthenticated, auth.register);
 router.post('/register', auth.postRegister);
 
 /* login form  */
-router.get('/', forwardAuthenticated, auth.login);
+router.get('/login', forwardAuthenticated, auth.login);
 /* handle login */
-router.post('/', auth.postLogin)
+router.post('/login', auth.postLogin)
 
 /* logout, kills session and redirects to frontpage  */
 router.get('/logout', auth.logout);

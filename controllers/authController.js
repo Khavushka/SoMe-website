@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const randomstring = require("randomstring");
 
 const User = require('../models/user/userSchema');
 const saltRounds = 10;
@@ -22,7 +23,7 @@ exports.postRegister = function (req, res) {
     }
 
     if (password != passwordr) {
-        errors.push({ msg: 'Passwords do not match' });
+        errors.push({ msg: 'Passwords do not match' }); //passwordr = password repeat
     }
 
     if (password.length < 4 ) {
@@ -58,25 +59,36 @@ exports.postRegister = function (req, res) {
                       email,
                       password
                   });
+                  
+                  var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
 
-                  bcrypt.hash(newUser.password, saltRounds, function (err, hash) {
-                      if (err) throw err;
-                      newUser.password = hash;
-                      newUser
-                          .save()
-                          .then(user => {
-                              req.flash(
-                                  'success_msg',
-                                  'You are now registered and can log in'
-                              );
-                              res.redirect('/');
-                          })
-                          .catch(err => console.log(err));
-                  });
-              }
-        });
-    }
-};
+                    var verification_token = randomstring.generate({
+                        length: 64
+                    });
+
+                    bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
+                        newUser.password = hash;
+                        newUser.verified = false;
+                        newUser.verify_token = verification_token;
+
+                        try {
+                            newUser.save(function (err) {
+                                if (err) {
+
+                                    throw err;
+                                } else {
+                                    VerifyEmail.sendverification(email, verification_token, permalink);
+                                    return done(null, newUser);
+                                }
+                            });
+                        } catch (err) {
+
+                        }
+                    });
+                }
+          });
+      }
+  };
 
 exports.login = function (req, res) {
     res.render('login', {
@@ -87,7 +99,7 @@ exports.login = function (req, res) {
 exports.postLogin = function (req, res, next) {
     passport.authenticate('local', {
         successRedirect: '/',
-        failureRedirect: '/',
+        failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);
 };
