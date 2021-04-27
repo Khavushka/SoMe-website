@@ -10,10 +10,10 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 
 // requires the model with Passport-Local Mongoose plugged in
-const userSchema = require('./models/userSchema');
+//const userSchema = require('./models/userSchema');
 
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 // use static authenticate method of model in LocalStrategy
 passport.use(new LocalStrategy(userSchema.authenticate()));
 
