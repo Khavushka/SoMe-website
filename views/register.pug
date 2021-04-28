@@ -13,25 +13,17 @@ block content
         if error != ''
             div(role='alert' id='a4') #{error}
         form(method='post' action='/users/register')
-            div.sign-up
-                div.tab Sign Up
-                    div.sign-up-htm
-                            div.group
-                                div
-                                    label.label Name
-                                        input(type='text' minlength='2' name='name' required)
-                                div
-                                    label.label Username
-                                        input.input(type='text' minlength='2' name='uid' required)
-                                div
-                                    label.label Email
-                                        input.input(type='email' minlength='6' name='email' required)
-                                div
-                                    label.label Password
-                                        input.input(type='password' minlength='4' name='password' required)
-                                div
-                                    label.label Repeat password
-                                        input.input(type='password' minlength='4' name='passwordr' required)
-                                div
-                                    input.button(type='submit' value='Sign Up')
-                                div.hr
+            div.wrapper
+                div.container 
+                    div.signup-form
+                        input.input(type='text' minlength='2' name='name' required placeholder="Name")
+                        br
+                        input.input(type='text' minlength='2' name='uid' required placeholder="Username")
+                        br
+                        input.input(type='email' minlength='6' name='email' required placeholder="Email")
+                        br
+                        input.input(type='password' minlength='4' name='password' required placeholder="Password")
+                        br
+                        input.input(type='password' minlength='4' name='passwordr' required placeholder="Repeat password")
+                        br
+                        input.btn(type='submit' value='Sign Up')

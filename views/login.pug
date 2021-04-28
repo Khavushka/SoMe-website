@@ -13,13 +13,12 @@ block content
         if error != ''
             div(role='alert' id='a4') #{error}
         form(method='post' action='/users/login')
-                        div.login-wrap
-                                div.login-html
-                                                div.sign-in
-                                                        div.tab Sign In
-                                                                div.group
-                                                                        div.label User Email
-                                                                                input.input(type='email' name='email' required)
-                                                                        div.label Password
-                                                                                input.input(type='password' name='password' required)
-                                                                        input.button(type='submit' value='Go')
+            div.wrapper
+                div.container
+                    div.login Log In
+                    div.signup Sign Up
+                        div.login-form
+                            input.input(type='email' name='email' required placeholder="Your Email")
+                            br
+                            input.input(type='password' name='password' required placeholder="Password")
+                            input.btn(type='submit' value='Log in')

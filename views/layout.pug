@@ -4,26 +4,26 @@ html
     title.title
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    //- link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="/public/loginfunk") 
   body
     header
-        nav
+        nav.main-menu
             ul
-                li
+                li.nav-text
                     a(href='/') Home
+                li.nav-text
+                    a(href='/users/login') Login
+                li.nav-text
+                    a(href='/users/register') Register
                 if !user
-                    li
-                        a(href='/users/login') Login
-                    li
-                        a(href='/users/register') Register
                 if user
-                    li
+                    li.nav-text
                         a(href="/dashboard") Insiders
-
-                    li
+                    li.nav-text
                         a(href='/users/logout') Logout
     main
         block content
     footer
         div(id='cpy')
-        div kilroy was here
+        div Rainbow Warriors were here
