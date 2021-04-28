@@ -2,7 +2,7 @@
 //Fra Example A.278. Authentication Controller, controllers/authController.js
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');s
 const randomstring = require("randomstring");
 
 const User = require('../models/user/userSchema');
@@ -29,12 +29,12 @@ exports.postRegister = function (req, res) {
     }
 
     if (password.length < 4 ) {
-        errors.push({ msg: 'Password must be at least 4 characters' });
-    }
+     errors.push({ msg: 'Password must be at least 4 characters' });
+    
 
     if (errors.length > 0) {
-        res.render('register', {
-            errors,
+     res.render('register', {
+         errors,
             name,
             uid,
             email,
@@ -59,8 +59,6 @@ exports.postRegister = function (req, res) {
                       name,
                       uid,
                       email,
-                      verify_token,
-                      permalink,
                       password
                   });
                   
@@ -92,14 +90,13 @@ exports.postRegister = function (req, res) {
                                     
                                 }
                             });
-                        } catch (err) {
-
-                        }
+                        } catch (err) {}
                     });
                 }
           });
       }
-  };
+  }
+};
 
 exports.login = function (req, res) {
     res.render('login', {
