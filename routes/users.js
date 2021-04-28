@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/authController.js");
-//const userSchema = require("../models/user/userschema");
 const { forwardAuthenticated } = require('../config/auth');
 
 /* registration form  */
