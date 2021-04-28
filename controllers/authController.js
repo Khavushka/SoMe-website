@@ -2,7 +2,7 @@
 //Fra Example A.278. Authentication Controller, controllers/authController.js
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const mongoose = require('mongoose');s
+const mongoose = require('mongoose');
 const randomstring = require("randomstring");
 
 const User = require('../models/user/userSchema');
@@ -41,7 +41,7 @@ exports.postRegister = function (req, res) {
             password,
             passwordr
         });
-    } else {
+        } else {
         User.findOne({ uid: uid })
             .then( function (user) {
               if (user) {
@@ -53,8 +53,8 @@ exports.postRegister = function (req, res) {
                     email,
                     password,
                     passwordr
-                });
-              } else {
+                    });
+                    } else {
                   const newUser = new User({
                       name,
                       uid,
@@ -92,10 +92,12 @@ exports.postRegister = function (req, res) {
                             });
                         } catch (err) {}
                     });
+              
+                
                 }
-          });
-      }
-  }
+            });
+        }
+    }
 };
 
 exports.login = function (req, res) {
@@ -117,3 +119,5 @@ exports.logout = function (req, res) {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
 };
+
+//en funktion bliver ikke afsluttet et sted

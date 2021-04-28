@@ -1,18 +1,7 @@
 extends layout
 
 block content
-  h1= title
-        if tf
-            p= tf
-        else
-                form(id='' action='/' method='post')
-                        div.login-wrap
-                                div.login-html
-                                                div.sign-in
-                                                        div.tab Sign In
-                                                                div.group
-                                                                        div.label User Email
-                                                                                input.input(type='email' name='email' required)
-                                                                        div.label Password
-                                                                                input.input(type='password' name='password' required)
-                                                                        input.button(type='submit' value='Go')
+    section.frontpage
+        h1 Welcome to the #{title}
+        if user
+            p User #{user} is logged on
