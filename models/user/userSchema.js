@@ -28,14 +28,13 @@ const userSchema = mongoose.Schema({
     avatar: { 
         data: Buffer,
         contentType: String
+    },
+    verify_token: {
+        type: String
+    },
+    permalink: {
+        type: String
     }
-    // ,
-    // verify_token: {
-    //     type: String
-    // },
-    // permalink: {
-    //     type: String
-    // }
 });
 
 // module.exports = mongoose.model('User', userSchema); /* The first argument is the singular name of the collection 
