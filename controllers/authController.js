@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const randomstring = require("randomstring");
 
 const User = require('../models/user/userSchema');
+const VerifyEmail = require('../config/nodemail');
+
 const saltRounds = 10;
 
 exports.register = function (req, res) {
@@ -78,7 +80,14 @@ exports.postRegister = function (req, res) {
                                     throw err;
                                 } else {
                                     VerifyEmail.sendverification(email, verification_token, permalink);
-                                    return done(null, newUser);
+                                    // .then(function msg() {
+                                    //     req.flash(
+                                    //         'success_msg',
+                                    //         'Verification email has been sent'
+                                    //     );
+                                    //     res.redirect('/users/login');
+                                    // });
+                                    
                                 }
                             });
                         } catch (err) {
