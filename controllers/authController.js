@@ -59,6 +59,8 @@ exports.postRegister = function (req, res) {
                       name,
                       uid,
                       email,
+                      verify_token,
+                      permalink,
                       password
                   });
                   
@@ -70,8 +72,8 @@ exports.postRegister = function (req, res) {
 
                     bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
                         newUser.password = hash;
-                        newUser.verified = false;
                         newUser.verify_token = verification_token;
+                        newUser.permalink = permalink;
 
                         try {
                             newUser.save(function (err) {

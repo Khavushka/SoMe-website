@@ -23,15 +23,20 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         enum: ['verified', 'admin', 'unverified'], 
-        default: 'admin'
+        default: 'unverified'
     },
     avatar: { 
         data: Buffer,
         contentType: String
     }
+    // ,
+    // verify_token: {
+    //     type: String
+    // },
+    // permalink: {
+    //     type: String
+    // }
 });
-
-
 
 // module.exports = mongoose.model('User', userSchema); /* The first argument is the singular name of the collection 
                                                         // that will be created for your model, the second argument
