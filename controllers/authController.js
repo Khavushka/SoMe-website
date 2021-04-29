@@ -68,37 +68,29 @@ exports.postRegister = function (req, res) {
                         length: 64
                     });
 
-                    bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
+                    bcrypt.hash(newUser.password, saltRounds, function (err, hash) {
+                        if (err) throw err;
                         newUser.password = hash;
-                        newUser.verify_token = verification_token;
-                        newUser.permalink = permalink;
-
-                        try {
-                            newUser.save(function (err) {
-                                if (err) {
-
-                                    throw err;
-                                } else {
-                                    VerifyEmail.sendverification(email, verification_token, permalink);
-                                    // .then(function msg() {
-                                    //     req.flash(
-                                    //         'success_msg',
-                                    //         'Verification email has been sent'
-                                    //     );
-                                    //     res.redirect('/users/login');
-                                    // });
-                                    
-                                }
-                            });
-                        } catch (err) {}
+                        newUser.save()
+                            .then(user => {
+                                req.flash(
+                                    'success_msg',
+                                    'You are now registered and can log in'
+                                );
+                                res.redirect('/users/login');
+                            })
+                            .catch(err => console.log(err));
                     });
-              
                 
                 }
             });
         }
     }
 };
+// newUser.verify_token = verification_token;
+// newUser.permalink = permalink;
+// VerifyEmail.sendverification(email, verification_token, permalink);
+
 
 exports.login = function (req, res) {
     res.render('login', {
