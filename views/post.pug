@@ -1,23 +1,15 @@
 extends layout
 
 block content
-  h1 users list
-    div.wrapper
-        div.cont
-            div.left 
-                div.top
-                    input(type="text" placeholder="Search")
-                    a(href="")
-                  ul.people
-                    li.person(data-chat="person-1")
-                      img
-                      span.name 
-                      span.time
-                      span.preview  
-              div.right
-                div.top
-                  span 
-                    span.name 
-                div.chat(data-chat="")
-                    
-                                       
+    div.containt
+        aside 
+            header
+                input(type="text" placeholder="search")
+                div.containe
+                    img(alt="Avatar")
+                    p
+                    span.time-right
+                div.containe-darker
+                    img(alt="Avatar")
+                    p
+                    span.time-left

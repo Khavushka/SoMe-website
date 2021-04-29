@@ -12,16 +12,16 @@ router.post('/register', auth.postRegister);
 /* login form  */
 router.get('/login', forwardAuthenticated, auth.login);
 /* handle login */
-router.post('/login', auth.postLogin)
+router.post('/login', auth.postLogin);
 
 /* logout, kills session and redirects to frontpage  */
 router.get('/logout', auth.logout);
 
 router.get('/verify/:permalink/:token', function (req, res) {
-    res.redirect('/');
-    // var permalink = req.params.permalink;
-    // var token = req.params.token;
-
+    
+    var permalink = req.params.permalink;
+    var token = req.params.token;
+    //fortsæt herfra imorn, fredag 29/4, funktion bør skrives i AuthController da den skal bruge userSchema
     // userSchema.findOne({permalink: permalink}, function (err, user) {
     //     if (user.verify_token == token) {
     //         console.log('that token is correct! Verify the user');
@@ -35,5 +35,6 @@ router.get('/verify/:permalink/:token', function (req, res) {
     //         console.log('The token is wrong! Reject the user. token should be: ' + user.local.verify_token);
     //     }
     // });
+    res.redirect('/');
 });
 module.exports = router;

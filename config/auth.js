@@ -1,7 +1,7 @@
 //fra Example A.280. Authentication Config, config/auth.js
 
 module.exports = {
-    ensureAuthenticated: function(req, res, next) {
+    ensureAuthenticated: function(req, res, next) { //den tjekker om du er logget ind
         if (req.isAuthenticated()) {
             return next();
         }

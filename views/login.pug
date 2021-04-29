@@ -17,7 +17,7 @@ block content
                 div.container
                     div.login Log In
                         div.login-form
-                            input.input(type='email' name='email' required placeholder="Your Email")
+                            input.input(type='text' name='uid' required placeholder="Your user id")
                             br
-                            input.input(type='password' name='password' required placeholder="Password")
+                            input.input(type='password' name='password' minlength='4' required placeholder="Password")
                             input.btn(type='submit' value='Log in')

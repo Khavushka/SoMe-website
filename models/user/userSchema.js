@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         enum: ['verified', 'admin', 'unverified'], 
-        default: 'unverified'
+        default: 'admin'
     },
     avatar: { 
         data: Buffer,

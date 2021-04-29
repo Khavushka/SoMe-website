@@ -26,8 +26,8 @@ exports.sendverification = function (email, permalink, verification_token) {
         to: email, // list of receivers
         subject: "Hello ✔", // Subject line
         text: "Here is your verification token. Please click the link.", // plain text body
-        html: '<p>Here is your verification token. Please click the link.</p><br><a href="localhost:3000/verify/' 
-        + verification_token + permalink + '">Click me</a>'// html body
+        html: '<p>Here is your verification token. Please click the link.</p><br><a href="localhost:3000/users/verify/' // hvorfor virker det her ? når router er omvendt 
+        + verification_token + '/' + permalink + '">Click me</a>'// html body
     });
 
     console.log("email sent with", info);

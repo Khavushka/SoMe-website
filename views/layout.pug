@@ -12,14 +12,14 @@ html
             ul
                 li.nav-text
                     a(href='/') Home
-                br
-                li.nav-text
-                    a(href='/users/login') Login
-                br
-                li.nav-text
-                    a(href='/users/register') Register
                 if !user
+                    li.nav-text
+                        a(href='/users/register') Register 
+                    li.nav-text
+                        a(href='/users/login') Login
                 if user
+                    li.nav-text
+                        a(href="/post") Post
                     li.nav-text
                         a(href="/dashboard") Insiders
                     li.nav-text
