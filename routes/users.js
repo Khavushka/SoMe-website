@@ -18,6 +18,7 @@ router.post('/login', auth.postLogin)
 router.get('/logout', auth.logout);
 
 router.get('/verify/:permalink/:token', function (req, res) {
+    res.redirect('/');
     // var permalink = req.params.permalink;
     // var token = req.params.token;
 

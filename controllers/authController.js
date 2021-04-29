@@ -25,23 +25,23 @@ exports.postRegister = function (req, res) {
     }
 
     if (password != passwordr) {
-        errors.push({ msg: 'Passwords do not match' }); //passwordr = password repeat
+        errors.push({ msg: 'Passwords do not match' });
     }
 
     if (password.length < 4 ) {
-     errors.push({ msg: 'Password must be at least 4 characters' });
-    
+        errors.push({ msg: 'Password must be at least 32 characters' });
+    }
 
     if (errors.length > 0) {
-     res.render('register', {
-         errors,
+        res.render('register', {
+            errors,
             name,
             uid,
             email,
             password,
             passwordr
         });
-        } else {
+    } else {
         User.findOne({ uid: uid })
             .then( function (user) {
               if (user) {
@@ -53,43 +53,46 @@ exports.postRegister = function (req, res) {
                     email,
                     password,
                     passwordr
-                    });
-                    } else {
+                });
+              } else {
                   const newUser = new User({
                       name,
                       uid,
                       email,
                       password
                   });
-                  
-                  var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
-
+                    var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
                     var verification_token = randomstring.generate({
-                        length: 64
+                    length: 64
                     });
+                    newUser.verify_token = verification_token;
+                    newUser.permalink = permalink;
 
-                    bcrypt.hash(newUser.password, saltRounds, function (err, hash) {
-                        if (err) throw err;
-                        newUser.password = hash;
-                        newUser.save()
-                            .then(user => {
-                                req.flash(
-                                    'success_msg',
-                                    'You are now registered and can log in'
-                                );
-                                res.redirect('/users/login');
-                            })
-                            .catch(err => console.log(err));
-                    });
-                
-                }
-            });
-        }
+                  bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
+                      if (err) throw err;
+                      newUser.password = hash;
+                        await VerifyEmail.sendverification(email, verification_token, permalink);
+                      newUser.save()
+                          .then(user => {
+                              req.flash(
+                                  'success_msg',
+                                  'You are now registered and can log in'
+                              );
+                              res.redirect('/');
+                          })
+                          .catch(err => console.log(err));
+                  });
+              }
+        });
     }
 };
 // newUser.verify_token = verification_token;
 // newUser.permalink = permalink;
 // VerifyEmail.sendverification(email, verification_token, permalink);
+// var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
+// var verification_token = randomstring.generate({
+//         length: 64
+//     });
 
 
 exports.login = function (req, res) {
@@ -111,5 +114,3 @@ exports.logout = function (req, res) {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
 };
-
-//en funktion bliver ikke afsluttet et sted

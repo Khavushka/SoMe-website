@@ -2,9 +2,22 @@ extends layout
 
 block content
   h1 users list
-    div
-        div 
-            div 
-                div 
-                    input
+    div.wrapper
+        div.cont
+            div.left 
+                div.top
+                    input(type="text" placeholder="Search")
+                    a(href="")
+                  ul.people
+                    li.person(data-chat="person-1")
+                      img
+                      span.name 
+                      span.time
+                      span.preview  
+              div.right
+                div.top
+                  span 
+                    span.name 
+                div.chat(data-chat="")
                     
+                                       
