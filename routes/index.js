@@ -15,7 +15,8 @@ router.get('/', function(req, res, next) {
 
 // til post
 router.get('/post', ensureAuthenticated, function(req, res, next) {
-    let user = req.user ? req.user.uid: !null;
+    let user = req.user ? req.user.uid: !null; // ? er if for det foran ?
+    //let verified = req.role.unverified ? req.role.unverified: null;
     res.render('post', {
         title: 'New post',
         user: user

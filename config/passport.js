@@ -18,20 +18,21 @@ module.exports = function(passport) {
                     return done(null, false, { message: 'Unknown user' });
                 }
                 // Match password
-                bcrypt.compare(password, user.password, function (err, isMatch) {
-                    if (err) throw err;
-                    if (isMatch) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false, { message: 'Password incorrect' });
-                    }
-                });
+                    bcrypt.compare(password, user.password, function (err, isMatch) {
+                        if (err) throw err;
+                            if (isMatch) {
+                                return done(null, user);
+                            } else {
+                                return done(null, false, { message: 'Password incorrect' });
+                            }
+                        });
+
             });
         })
     );
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.id, user.role);
     });
 
     passport.deserializeUser(function(id, done) {
@@ -40,3 +41,4 @@ module.exports = function(passport) {
         });
     });
 };
+

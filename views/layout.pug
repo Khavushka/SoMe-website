@@ -12,24 +12,32 @@ html
     header
         nav.main-menu
             ul
-                li.nav-text
-                    a(href='/') Home
-                    //-  i(class="fa fa-home fa-lg")
+                li
+                    a(href='/') 
+                        i(class="fa fa-home fa-lg")
+                        span.nav-text Home
                 if !user
-                    li.nav-text
-                        a(href='/users/register') Register 
-                    li.nav-text
-                        a(href='/users/login') Login
-                            //- i(class="icon-signin")
+                    li
+                        a(href='/users/register') Register
+                        i#fa(class="icon-key")
+                        span.nav-text 
+                    li
+                        a(href='/users/login')
+                            i.fa(class="icon-signin")
+                            span.nav-text Login
                 if user
-                    li.nav-text
-                        a(href="/post") Post
-                            //- i(class="icon-envelope-alt")
-                    li.nav-text
-                        a(href="/dashboard") Insiders
-                    li.nav-text
+                    li
+                        a(href="/post")
+                            i#fa(class="icon-comments-alt")
+                            span.nav-text Post
+                    li
+                        a(href="/dashboard")
+                            i#fa(class="icon-dashboard")
+                            span.nav-text Insiders
+                    li
                         a(href='/users/logout')
-                        i(class="icon-signout")
+                            i#fa(class="icon-signout")
+                            span.nav-text Logout
     main
         block content
     footer

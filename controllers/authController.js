@@ -5,7 +5,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const randomstring = require("randomstring");
 
-const User = require('../models/user/userSchema');
+const userSchema = require('../models/user/userSchema');
 const VerifyEmail = require('../config/nodemail');
 
 const saltRounds = 10;
@@ -31,7 +31,6 @@ exports.postRegister = function (req, res) {
     if (password.length < 4 ) {
         errors.push({ msg: 'Password must be at least 32 characters' });
     }
-
     if (errors.length > 0) {
         res.render('register', {
             errors,
@@ -42,7 +41,7 @@ exports.postRegister = function (req, res) {
             passwordr
         });
     } else {
-        User.findOne({ uid: uid })
+        userSchema.findOne({ uid: uid })
             .then( function (user) {
               if (user) {
                 errors.push({ msg: 'Email already exists' });
@@ -55,7 +54,7 @@ exports.postRegister = function (req, res) {
                     passwordr
                 });
               } else {
-                  const newUser = new User({
+                  const newUser = new userSchema({
                       name,
                       uid,
                       email,
@@ -86,14 +85,23 @@ exports.postRegister = function (req, res) {
         });
     }
 };
-// newUser.verify_token = verification_token;
-// newUser.permalink = permalink;
-// VerifyEmail.sendverification(email, verification_token, permalink);
-// var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
-// var verification_token = randomstring.generate({
-//         length: 64
-//     });
 
+//Tilpasset fra https://stackoverflow.com/questions/28847491/verification-email-with-token-in-passport-js
+exports.verify = function (req, res) {
+    var permalink = req.params.permalink;
+    var token = req.params.token;
+    userSchema.findOne({permalink: permalink}, function (err, user) {
+        if (user.verify_token == token) {
+            console.log('that token is correct! Verify the user');
+            userSchema.findOneAndUpdate({permalink: permalink}, {role: "verified"}, function (err, resp) {
+                //De 2 console.log her skal laves om så de bruger flash og beskederne skal være upræcise
+                console.log('The user has been verified!');
+             });
+             } else {
+           console.log('The token is wrong! Reject the user. token should be: ' + user.verify_token);
+             }
+         });
+}
 
 exports.login = function (req, res) {
     res.render('login', {
@@ -102,11 +110,20 @@ exports.login = function (req, res) {
 };
 
 exports.postLogin = function (req, res, next) {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/users/login',
-        failureFlash: true
-    })(req, res, next);
+    /* Før login henter vi bruger data fra db og
+    laver et check på om brugeren er verificeret eller admin */
+    userSchema.findOne({uid: req.body.uid}, function (err, user) {                                     
+    if (user.role === "unverified") { /* Hvis user role er identisk med unverified */
+        req.flash('error', 'User must have a  verified email address');
+        res.render('login');
+    } else { 
+        passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/users/login',
+            failureFlash: true
+        })(req, res, next);
+    }  
+    });
 };
 
 exports.logout = function (req, res) {

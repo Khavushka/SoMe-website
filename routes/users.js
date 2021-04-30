@@ -17,24 +17,11 @@ router.post('/login', auth.postLogin);
 /* logout, kills session and redirects to frontpage  */
 router.get('/logout', auth.logout);
 
-router.get('/verify/:permalink/:token', function (req, res) {
-    
+router.get('/verify/:permalink/:token', async function (req, res) {
+/* verify email */
     var permalink = req.params.permalink;
     var token = req.params.token;
-    //fortsæt herfra imorn, fredag 29/4, funktion bør skrives i AuthController da den skal bruge userSchema
-    // userSchema.findOne({permalink: permalink}, function (err, user) {
-    //     if (user.verify_token == token) {
-    //         console.log('that token is correct! Verify the user');
-
-    //         User.findOneAndUpdate({'local.permalink': permalink}, {'local.verified': true}, function (err, resp) {
-    //             console.log('The user has been verified!');
-    //         });
-
-    //         res.redirect('/login');
-    //     } else {
-    //         console.log('The token is wrong! Reject the user. token should be: ' + user.local.verify_token);
-    //     }
-    // });
-    res.redirect('/');
+    auth.verify(req, res);
+    res.redirect('/users/login');
 });
 module.exports = router;

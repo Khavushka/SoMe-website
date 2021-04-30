@@ -35,7 +35,6 @@
   
   .signup-form{
 	background: #fff;
-	color: black;
 	padding: 60px;
 	clear: both;
 	width: 100%;
@@ -46,7 +45,6 @@
 
   .login-form{
 	background: #fff;
-	color: black;
 	margin-top: 100px;
 	margin-left: 200px;
 	padding: 45px;
@@ -87,15 +85,28 @@
 
 
   /* -------------------------Menu-------------------- */
+	.fa {
+	font-size: 1em;
+	position: relative;
+	display: table-cell;
+	width: 55px;
+	height: 36px;
+	text-align: center;
+	top:12px; 	
+	font-size:20px;
+	}
 
-.hover {
-  height:73px;
-  float:left;
-  background-image:url(https://s27.postimg.org/4hhl2szcf/startific_small.jpg);
-  background-repeat:no-repeat;
-  width:255px;
-  margin:0px;
-}
+	#fa {
+		font-size: 1em;
+		position: relative;
+		display: table-cell;
+		width: 55px;
+		height: 36px;
+		text-align: center;
+		top:12px; 	
+		font-size:20px;
+	}
+
 
 .main-menu:hover, nav.main-menu.expanded {
 width:250px;
@@ -167,27 +178,11 @@ color: black;
 font-size: 20px;;
 }
 
-.main-menu>ul.logout {
+/* .main-menu>ul.logout {
 position:absolute;
 left:0;
 bottom:0;  
-}
-
-.no-touch .scrollable.hover {
-overflow-y:hidden;
-}
-
-.no-touch .scrollable.hover:hover {
-overflow-y:auto;
-overflow:visible;
-  
-}
-
-.settings:hover, settings:focus {   
-  background:url( https://s3.postimg.org/bqfooag4z/startific.jpg);
-}
-
-
+} */
 
 a:hover,a:focus {
 text-decoration:none;
@@ -213,18 +208,6 @@ padding:0;
 color:#fff;
 background-color:#00bbbb;
 text-shadow: 0px 0px 0px; 
-}
-.area {
-float: left;
-background: #e2e2e2;
-width: 100%;
-height: 100%;
-}
-@font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
 
@@ -276,13 +259,15 @@ height: 100%;
 .containt{
 	width:750px;
 	height:800px;
-	background:#eff3f7;
 	margin:0 auto;
 	font-size:0;
 	border-radius:5px;
 	overflow:hidden;
 }
 aside{
+	position: absolute;
+	top: 0;
+	right: 0;
 	width:260px;
 	height:800px;
 	background-color:#3b3e49;
