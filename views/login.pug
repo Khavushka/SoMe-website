@@ -2,7 +2,6 @@ extends layout
 
 block content
     section
-        h1 Please #{title}
         if errors != undefined && errors.length != 0
             each error in errors
                 div(role='alert' id='a1') #{error.msg}
@@ -14,10 +13,9 @@ block content
             div(role='alert' id='a4') #{error}
         form(method='post' action='/users/login')
             div.wrapper
-                div.container
-                    div.login Log In
-                        div.login-form
+                div.contra
+                    div.login 
+                        div.login-form Please Log In
                             input.input(type='text' name='uid' required placeholder="Your user id")
-                            br
                             input.input(type='password' name='password' minlength='4' required placeholder="Password")
                             input.btn(type='submit' value='Log in')
