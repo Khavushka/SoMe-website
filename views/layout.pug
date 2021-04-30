@@ -6,11 +6,10 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/stylesheets/style.css")
     link(rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
-    link(href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet")
     script(src="/public/loginfunk") 
   body
     header
-        nav.main-menu
+        nav(class="main-menu")
             ul
                 li
                     a(href='/') 
@@ -18,25 +17,25 @@ html
                         span.nav-text Home
                 if !user
                     li
-                        a(href='/users/register') Register
-                        i#fa(class="icon-key")
-                        span.nav-text 
+                        a(href='/users/register') 
+                            i(class="fa fa-plus")
+                            span.nav-text Register
                     li
                         a(href='/users/login')
-                            i.fa(class="icon-signin")
+                            i(class="fa fa-sign-in")
                             span.nav-text Login
                 if user
                     li
                         a(href="/post")
-                            i#fa(class="icon-comments-alt")
+                            i#fa(class="fa fa-envelope")
                             span.nav-text Post
                     li
                         a(href="/dashboard")
-                            i#fa(class="icon-dashboard")
+                            i#fa(class="fa fa-tachometer")
                             span.nav-text Insiders
                     li
                         a(href='/users/logout')
-                            i#fa(class="icon-signout")
+                            i#fa(class="fa fa-sign-out")
                             span.nav-text Logout
     main
         block content

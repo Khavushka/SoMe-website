@@ -2,7 +2,6 @@ extends layout
 
 block content
     section
-        h1 Please enter your details to register.
         if errors != undefined && errors.length != 0
             each error in errors
                 div(role='alert' id='a1') #{error.msg}
@@ -14,9 +13,10 @@ block content
             div(role='alert' id='a4') #{error}
         form(method='post' action='/users/register')
             div.wrapper
-                div.contra 
+                div.container
                     div.signup 
-                        div.signup-form Register
+                        div.signup-form 
+                            p Please enter your details to register.
                             input.input(type='text' minlength='2' name='name' required placeholder="Name")
                             br
                             input.input(type='text' minlength='2' name='uid' required placeholder="Username")
@@ -27,4 +27,4 @@ block content
                             br
                             input.input(type='password' minlength='4' name='passwordr' required placeholder="Repeat password")
                             br
-                            input.btn(type='submit' value='Sign Up')
+                            input.btn(class="bubbly-button" type='submit' value='Sign Up')
