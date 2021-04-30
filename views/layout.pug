@@ -5,6 +5,8 @@ html
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+    link(href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet")
     script(src="/public/loginfunk") 
   body
     header
@@ -12,18 +14,22 @@ html
             ul
                 li.nav-text
                     a(href='/') Home
+                    //-  i(class="fa fa-home fa-lg")
                 if !user
                     li.nav-text
                         a(href='/users/register') Register 
                     li.nav-text
                         a(href='/users/login') Login
+                            //- i(class="icon-signin")
                 if user
                     li.nav-text
                         a(href="/post") Post
+                            //- i(class="icon-envelope-alt")
                     li.nav-text
                         a(href="/dashboard") Insiders
                     li.nav-text
-                        a(href='/users/logout') Logout
+                        a(href='/users/logout')
+                        i(class="icon-signout")
     main
         block content
     footer
