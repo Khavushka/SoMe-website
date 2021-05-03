@@ -8,11 +8,11 @@ const userSchema = require('../models/userSchema');
 
  // henter alle brugere
  exports.getUsers = async function (req, res) {
-
-        let users = await userSchema.find({}, null,{});
+    let users = await userSchema.find({}, null,{});
     // await userSchema.find({}, function(err, user){
     // let users = user.uid;
-    console.log(users);
+    // return users
+    //);}
     return users;
 
 
