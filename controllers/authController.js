@@ -5,7 +5,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const randomstring = require("randomstring");
 
-const userSchema = require('../models/user/userSchema');
+const userSchema = require('../models/userSchema');
 const VerifyEmail = require('../config/nodemail');
 
 const saltRounds = 10;
@@ -115,10 +115,10 @@ exports.postLogin = function (req, res, next) {
     userSchema.findOne({uid: req.body.uid}, function (err, user) {                                     
     if (user.role === "unverified") { /* Hvis user role er identisk med unverified */
         req.flash('error', 'User must have a  verified email address');
-        res.render('login');
+        res.redirect('/users/login');
     } else { 
         passport.authenticate('local', {
-            successRedirect: '/',
+            successRedirect: '/feed',
             failureRedirect: '/users/login',
             failureFlash: true
         })(req, res, next);

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const yadaSchema = mongoose.Schema({
+const yaddaSchema = mongoose.Schema({
     bywhom: {  
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User' 
@@ -12,4 +12,4 @@ const yadaSchema = mongoose.Schema({
     content: { type: String, required: true},
 });
 
-module.exports = mongoose.model('Yada', yadaSchema);
+module.exports = mongoose.model('Yadda', yaddaSchema);

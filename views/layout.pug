@@ -11,11 +11,11 @@ html
     header
         nav(class="main-menu")
             ul
-                li
-                    a(href='/') 
-                        i(class="fa fa-home fa-lg")
-                        span.nav-text Home
                 if !user
+                    li
+                        a(href='/') 
+                            i(class="fa fa-home fa-lg")
+                            span.nav-text Home
                     li
                         a(href='/users/register') 
                             i(class="fa fa-plus")
@@ -25,6 +25,10 @@ html
                             i(class="fa fa-sign-in")
                             span.nav-text Login
                 if user
+                    li
+                        a(href="/feed")
+                            i#fa(class="fa fa-home fa-lg")
+                            span.nav-text Feed
                     li
                         a(href="/post")
                             i#fa(class="fa fa-envelope")
@@ -38,6 +42,20 @@ html
                             i#fa(class="fa fa-sign-out")
                             span.nav-text Logout
     main
+        if user
+                aside.containt
+                    header
+                        input(type="text" placeholder="search")
+                        div.containe
+                            img(alt="Avatar")
+                            p
+                            span.time-right
+                        div.containe-darker
+                            img(alt="Avatar")
+                            p
+                            span.time-left
+                        each friend in users
+                            div #{users.uid}
         block content
     footer
         div(id='cpy')

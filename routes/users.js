@@ -24,4 +24,7 @@ router.get('/verify/:permalink/:token', async function (req, res) {
     auth.verify(req, res);
     res.redirect('/users/login');
 });
+
+
+
 module.exports = router;
