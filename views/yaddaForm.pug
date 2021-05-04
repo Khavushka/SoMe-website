@@ -15,5 +15,8 @@ block content
         form(method='post' action='/yaddaForm')
             if user
                 div.wrapper 
-                    input.input(type='text')
-                    input.btn(class="bubbly-button" type='submit' value='Send')
+                    textarea#text(name="", cols="30", rows="10")
+                        button(class="attachment")
+                        i(class="fa fa-paperclip")
+                        button(class="send")
+                            i(class="fa fa-paper-plane")

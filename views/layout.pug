@@ -11,7 +11,7 @@ html
     header
         nav(class="main-menu")
             ul
-                if !user
+                 if !user
                     li
                         a(href='/') 
                             i(class="fa fa-home fa-lg")
@@ -24,22 +24,22 @@ html
                         a(href='/users/login')
                             i(class="fa fa-sign-in")
                             span.nav-text Login
-                if user
+                 if user
                     li
                         a(href="/feed")
-                            i#fa(class="fa fa-home fa-lg")
+                            i(class="fa fa-rss")
                             span.nav-text Feed
                     li
                         a(href="/post")
-                            i#fa(class="fa fa-envelope")
+                            i(class="fa fa-envelope")
                             span.nav-text Post
                     li
                         a(href="/dashboard")
-                            i#fa(class="fa fa-tachometer")
+                            i(class="fa fa-tachometer")
                             span.nav-text Insiders
                     li
                         a(href='/users/logout')
-                            i#fa(class="fa fa-sign-out")
+                            i(class="fa fa-sign-out")
                             span.nav-text Logout
     main
         if user
@@ -58,13 +58,13 @@ html
                             p #{friend.name}
                             div
                                 a(href="/yaddaForm/" + friend.uid) 
-                                    button Send Yadda
+                                    button.follow Send Yadda
                             div
                                 a(href="/follow/" + friend.uid) 
-                                    button follow
+                                    button.follow follow
                             div
                                 a(href="/unfollow/" + friend.uid) 
-                                    button unfollow
+                                    button.follow unfollow
         block content
     footer
         div(id='cpy')
