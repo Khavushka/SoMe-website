@@ -11,9 +11,9 @@ block content
             div(role='alert' id='a3') #{error_msg}
         if error != ''
             div(role='alert' id='a4') #{error}
-        h1 title
-            form(method='post' action='/yaddaForm')
-                if user
-                    div.wrapper
-                        input.input(type='text')
-                        input.btn(class="bubbly-button" type='submit' value='Send')
+        h1 #{title}
+        form(method='post' action='/yaddaForm')
+            if user
+                div.wrapper 
+                    input.input(type='text')
+                    input.btn(class="bubbly-button" type='submit' value='Send')

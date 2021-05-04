@@ -59,7 +59,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
     res.render('yaddaForm', {
         users,
         friend,
-        title: 'yadda to' + friend.name, // måske friend hvis user ikke virker
+        title: 'yadda to ' + friend.name, // måske friend hvis user ikke virker
         user: user
     });
 });
