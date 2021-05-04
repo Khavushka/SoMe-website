@@ -56,6 +56,15 @@ html
                             span.time-left
                         each friend in users
                             p #{friend.name}
+                            div
+                                a(href="/yaddaForm/" + friend.uid) 
+                                    button Send Yadda
+                            div
+                                a(href="/follow/" + friend.uid) 
+                                    button follow
+                            div
+                                a(href="/unfollow/" + friend.uid) 
+                                    button unfollow
         block content
     footer
         div(id='cpy')

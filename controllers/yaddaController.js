@@ -2,34 +2,37 @@
 const mongoose = require('mongoose');
 const followSchema = require('../models/followSchema');
 const userSchema = require('../models/userSchema');
+const yaddaSchema = require('../models/yaddaSchema')
 
 
  // følger brugere
 
- // henter alle brugere
+ // henter alle brugere // tjek senere om async er nødvendigt
  exports.getUsers = async function (req, res) {
-    let users = await userSchema.find({}, null,{});
+    let users = await userSchema.find({}, null,{}); // find tager tre parameter, en skal være null. Tredje handler om options
     // await userSchema.find({}, function(err, user){
     // let users = user.uid;
     // return users
     //);}
     return users;
-
-
 }
+
+// Sender brugeren videre til en post yadda side
+exports.gotoYaddaform = async function(req, uid) {
+    let friend = await userSchema.findOne({uid: uid});
+    console.log(uid);
+    console.log(friend);
+    return friend;
+}
+
+exports.adminUser = async function(req) {
+
+   
+}
+
+exports.deleteUser = async function(req) {
+
+  
+}
+
  // henter yaddas
-
-
-//  if (sort === null)
-//  sort = {sort: {name: 1}};
-// try {
-//  // await er asynkront og venter, til den får info
-//  let users = await User.find({
-//      role: "unverified"}, null,{});  // await er asynkront og venter, til den får info
-//  let emails = User.email;
-//  return users;
-// } catch (e) {
-//  console.log(e);
-// } db.close();
-// console.log(emails);
-// }
