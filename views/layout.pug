@@ -45,25 +45,18 @@ html
                 aside.containt
                     header
                         input(type="text" placeholder="search")
-                        div.containe
-                            img(alt="Avatar")
-                            p
-                            span.time-right
-                        div.containe-darker
-                            img(alt="Avatar")
-                            p
-                            span.time-left
                         each friend in users
                             p #{friend.name}
-                            div
-                                a(href="/yaddaForm/" + friend.uid) 
-                                    button.follow Send Yadda
-                            div
-                                a(href="/follow/" + friend.uid) 
-                                    button.follow Follow
-                            div
-                                a(href="/unfollow/" + friend.uid) 
-                                    button.follow Unfollow
+                            div.knapper
+                                div
+                                    a(href="/yaddaForm/" + friend.uid) 
+                                        button.follow Send Yadda
+                                div
+                                    a(href="/follow/" + friend.uid) 
+                                        button.follow Follow
+                                div
+                                    a(href="/unfollow/" + friend.uid) 
+                                        button.follow Unfollow
         block content
     footer
         div(id='cpy')

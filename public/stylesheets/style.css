@@ -37,9 +37,9 @@
   
   p {
 	  font-size: 20px;
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
+	  /* display: flex; */
+	  /* justify-content: center;
+	  align-items: center; */
   }
   
   .input{
@@ -205,7 +205,7 @@
   }
 
 .containt{
-	width:750px;
+	width:300px;
 	height:800px;
 	margin:0 auto;
 	font-size:0;
@@ -257,11 +257,26 @@ aside input::placeholder{
 /*--------------- Styling til tre knapper på layout--------- */
 
 .follow {
-	background-color: green;
+	background-color: #1f471f;
 	border: none;
 	color: white;
-	padding: 15px 32px;
+	padding: 8px 10px;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 	margin: 4px 2px;
+	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	transition-delay: 0.2s;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.knapper {
+display: flex;
+justify-content: center;
+}
+
+
+
+
+.wrapper {
+	padding: 10px 50% 0 50%;
 }
