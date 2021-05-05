@@ -2,20 +2,20 @@ extends layout
 
 block content
     section
-        if errors != undefined && errors.length != 0
-            each error in errors
-                div(role='alert' id='a1') #{error.msg}
-        if success_msg != ''
-            div(role='alert' id='a2') #{success_msg}
-        if error_msg != ''
-            div(role='alert' id='a3') #{error_msg}
-        if error != ''
-            div(role='alert' id='a4') #{error}
         form(method='post' action='/users/login')
             div.wrapper
                 div.container
                     div.login 
-                        div.login-form 
+                        div.login-form
+                            if errors != undefined && errors.length != 0
+                                each error in errors
+                                    div(role='alert' id='a1') #{error.msg}
+                            if success_msg != ''
+                                div(role='alert' id='a2') #{success_msg}
+                            if error_msg != ''
+                                div(role='alert' id='a3') #{error_msg}
+                            if error != ''
+                                div(role='alert' id='a4') #{error}
                             p Please Log In
                             input.input(type='text' name='uid' required placeholder="Your user id")
                             input.input(type='password' name='password' minlength='4' required placeholder="Password")

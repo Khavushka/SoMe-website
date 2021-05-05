@@ -109,11 +109,11 @@ exports.login = function (req, res) {
     });
 };
 
-exports.postLogin = function (req, res, next) {
+exports.postLogin = async function (req, res, next) {
     /* Før login henter vi bruger data fra db og
     laver et check på om brugeren er verificeret eller admin */
-    userSchema.findOne({uid: req.body.uid}, function (err, user) {                                     
-    if (user.role === "unverified") { /* Hvis user role er identisk med unverified */
+    let user = userSchema.findOne({uid: req.body.uid});                                    
+    if (user && user.role == "unverified") { /* Hvis user role er identisk med unverified */
         req.flash('error', 'User must have a  verified email address');
         res.redirect('/users/login');
     } else { 
@@ -123,7 +123,6 @@ exports.postLogin = function (req, res, next) {
             failureFlash: true
         })(req, res, next);
     }  
-    });
 };
 
 exports.logout = function (req, res) {
