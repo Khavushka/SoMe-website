@@ -75,9 +75,9 @@ exports.postRegister = function (req, res) {
                           .then(user => {
                               req.flash(
                                   'success_msg',
-                                  'You are now registered and can log in'
+                                  'You are now registered. Please check your email to get verified.'
                               );
-                              res.redirect('/');
+                              res.redirect('/users/login');
                           })
                           .catch(err => console.log(err));
                   });
@@ -92,13 +92,14 @@ exports.verify = function (req, res) {
     var token = req.params.token;
     userSchema.findOne({permalink: permalink}, function (err, user) {
         if (user.verify_token == token) {
-            console.log('that token is correct! Verify the user');
             userSchema.findOneAndUpdate({permalink: permalink}, {role: "verified"}, function (err, resp) {
-                //De 2 console.log her skal laves om så de bruger flash og beskederne skal være upræcise
-                console.log('The user has been verified!');
+                req.flash('success_msg', 'User email has been verified');
+                res.redirect('/users/login');
              });
              } else {
-           console.log('The token is wrong! Reject the user. token should be: ' + user.verify_token);
+           //console.log('The token was wrong! Reject the user. token should be: ' + user.verify_token);
+            req.flash('error', 'The token was wrong!');
+            res.redirect('/users/login');
              }
          });
 }
@@ -112,9 +113,9 @@ exports.login = function (req, res) {
 exports.postLogin = async function (req, res, next) {
     /* Før login henter vi bruger data fra db og
     laver et check på om brugeren er verificeret eller admin */
-    let user = userSchema.findOne({uid: req.body.uid});                                    
+    let user = await userSchema.findOne({uid: req.body.uid}); //altid async og await når vi henter fra DB                                  
     if (user && user.role == "unverified") { /* Hvis user role er identisk med unverified */
-        req.flash('error', 'User must have a  verified email address');
+        req.flash('error', 'User must have a verified email address');
         res.redirect('/users/login');
     } else { 
         passport.authenticate('local', {

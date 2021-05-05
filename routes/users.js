@@ -22,7 +22,6 @@ router.get('/verify/:permalink/:token', async function (req, res) {
     var permalink = req.params.permalink;
     var token = req.params.token;
     auth.verify(req, res);
-    res.redirect('/users/login');
 });
 
 module.exports = router;
