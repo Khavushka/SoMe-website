@@ -45,7 +45,20 @@ router.get('/', ensureAuthenticated, function(req, res) {
 
 
 // get yaddaform - hvor man som bruger indtaster selv i formular, hvem der skal sendes til
-router.get('/yaddaForm/', ensureAuthenticated);
+router.get('/yaddaForm/', ensureAuthenticated, async function(req, res) {
+    let users = await yadda.getUsers({});
+    let user = req.user ? req.user.uid: null;
+    let friend = await yadda.gotoYaddaform(req, uid, {}
+        // ,{name: this.name,
+        // avatar: this.avatar}
+    );
+    res.render('yaddaForm', {
+        users,
+        friend,
+        title: 'New post',
+        user: user
+    });
+});
 
 // get yaddaform med uid fra 
 router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {

@@ -2,19 +2,19 @@ extends layout
 
 block content
     section
-        if errors != undefined && errors.length != 0
-            each error in errors
-                div(role='alert' id='a1') #{error.msg}
-        if success_msg != ''
-            div(role='alert' id='a2') #{success_msg}
-        if error_msg != ''
-            div(role='alert' id='a3') #{error_msg}
-        if error != ''
-            div(role='alert' id='a4') #{error}
-        h1 #{title}
         form(method='post' action='/yaddaForm')
             if user
                 div.wrapper 
+                    if errors != undefined && errors.length != 0
+                        each error in errors
+                            div(role='alert' id='a1') #{error.msg}
+                    if success_msg != ''
+                        div(role='alert' id='a2') #{success_msg}
+                    if error_msg != ''
+                        div(role='alert' id='a3') #{error_msg}
+                    if error != ''
+                        div(role='alert' id='a4') #{error}
+                    h1 #{title}
                     textarea#text(name="", cols="30", rows="10")
                         button(class="attachment")
                         i(class="fa fa-paperclip")
