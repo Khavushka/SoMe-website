@@ -6,7 +6,6 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/stylesheets/style.css")
     link(rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
-    script(src="/javascripts/loginfunk") 
   body
     header
         nav(class="main-menu")
@@ -30,9 +29,9 @@ html
                             i(class="fa fa-rss")
                             span.nav-text Feed
                     li
-                        a(href="/post")
+                        a(href="/yaddaForm")
                             i(class="fa fa-envelope")
-                            span.nav-text Post
+                            span.nav-text Send yadda
                     li
                         a(href="/dashboard")
                             i(class="fa fa-tachometer")
@@ -61,10 +60,10 @@ html
                                     button.follow Send Yadda
                             div
                                 a(href="/follow/" + friend.uid) 
-                                    button.follow follow
+                                    button.follow Follow
                             div
                                 a(href="/unfollow/" + friend.uid) 
-                                    button.follow unfollow
+                                    button.follow Unfollow
         block content
     footer
         div(id='cpy')
