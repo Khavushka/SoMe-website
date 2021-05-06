@@ -113,7 +113,7 @@ exports.login = function (req, res) {
 exports.postLogin = async function (req, res, next) {
     /* Før login henter vi bruger data fra db og
     laver et check på om brugeren er verificeret eller admin */
-    let user = await userSchema.findOne({uid: req.body.uid}); //altid async og await når vi henter fra DB                                  
+    let user = await userSchema.findOne({uid: req.body.uid}); //altid async og await når vi henter fra DB                             
     if (user && user.role == "unverified") { /* Hvis user role er identisk med unverified */
         req.flash('error', 'User must have a verified email address');
         res.redirect('/users/login');
