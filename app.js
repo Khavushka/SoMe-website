@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 /* part I from Traversy video */
-const flash = require('connect-flash');
+const flash = require('connect-flash'); // Bruges til at vise beskeder til brugeren på siden via req flash
 const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');

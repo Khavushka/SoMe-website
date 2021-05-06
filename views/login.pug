@@ -7,16 +7,17 @@ block content
                 div.container
                     div.login 
                         div.login-form
-                            if errors != undefined && errors.length != 0
-                                each error in errors
-                                    div(role='alert' id='a1') #{error.msg}
-                            if success_msg != ''
-                                div(role='alert' id='a2') #{success_msg}
-                            if error_msg != ''
-                                div(role='alert' id='a3') #{error_msg}
-                            if error != ''
-                                div(role='alert' id='a4') #{error}
                             p Please Log In
                             input.input(type='text' name='uid' required placeholder="Your user id")
                             input.input(type='password' name='password' minlength='4' required placeholder="Password")
                             input.btn(type='submit' value='Log in')
+                            if errors != undefined && errors.length != 0
+                                each error in errors
+                                    div.error-msg(role='alert' id='a1') #{error.msg}
+                            if success_msg != ''
+                                div(role='alert' id='a2') #{success_msg}
+                            if error_msg != ''
+                                div.error-msg(role='alert' id='a3') #{error_msg}
+                            if error != ''
+                                div.error-msg(role='alert' id='a4') #{error}
+                                    //- i(class="fa fa-times-circle")

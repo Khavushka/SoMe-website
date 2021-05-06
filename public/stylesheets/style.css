@@ -40,6 +40,7 @@
 	  /* display: flex; */
 	  /* justify-content: center;
 	  align-items: center; */
+	  color: white;
   }
   
   .input{
@@ -275,8 +276,121 @@ justify-content: center;
 }
 
 
-
+/* til noget */
 
 .wrapper {
 	padding: 10px 50% 0 50%;
 }
+
+
+/* Til ERROR-MSG */
+.error-msg {
+	margin: 10px 0;
+	padding: 10px;
+	border-radius: 3px 3px 3px 3px;
+	color: #D8000C;
+	background-color: #FFBABA;
+}
+
+
+/* Til SUCCESS-MSG */
+#a2 {
+	margin: 10px 0;
+	padding: 10px;
+	border-radius: 3px 3px 3px 3px;
+	color: #270;
+	background-color: #DFF2BF;
+}
+
+/*SenYadda*/
+.wrapper-chat{
+    display:flex;
+    justify-content:center;
+    width:100%;
+    font-family: "Cairo";
+  }
+
+  .message-body{
+	height:calc(100% - 85px);
+	box-shadow: inset 0 10px 10px -10px #000000;
+	overflow-x: hidden;
+	margin-bottom:15px;
+	width:100%;
+	padding: 0 16px;
+	
+  }
+
+  footer{
+	position: absolute;
+	bottom:0;
+	left: 0;
+	right:0;
+	width:100%;
+	background: transparent;
+  }
+
+.bottom {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	/* height:70px;
+	width:100%;
+	margin:0;
+	overflow:hidden; */
+  }
+  .form{
+	position:absolute;
+	width: 80%;
+  }
+  .sendMess{
+	border-radius:50px;
+  }
+   textarea, .sendMess button{
+	max-height:100px;
+  }
+  /* .sendMess button
+  {
+	border:none;
+	width:20%;
+	background-color:white;
+  } */
+  .sendMess .attachment{
+   border-radius:15px 0px 0px 15px;
+   
+  }
+  .sendMess .send{
+	border-radius:0px 15px 15px 0px;
+   }
+  .sendMess textarea{
+	width:70%;
+	margin-left:-5px;
+	margin-right:-4px;
+	padding:5px;
+	border:none;
+	
+  }
+  textarea:focus,button:focus{
+	outline:none;
+  }
+  .sendMess{
+	width:90%;
+	min-height:100%;
+	margin:0 auto;
+	display:flex;
+  }
+  
+  @media  only screen and (max-width:700px){
+	.sidebar{
+	  display:none;
+	}
+  }
+  @media  only screen and (max-width:700px){
+	.chat{
+	  width:100%;
+	}
+  }
+
+  #plane{
+	  color: black;
+  }

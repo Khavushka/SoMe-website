@@ -2,19 +2,22 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/authController.js");
-const { forwardAuthenticated } = require('../config/auth');
+const userController = require('../controllers/userController.js');
 
-/* registration form  */
+const { forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated } = require('../config/auth');
+
+/* registration form */
 router.get('/register', forwardAuthenticated, auth.register);
-/* receive registration data  */
+/* receive registration data */
 router.post('/register', auth.postRegister);
 
-/* login form  */
+/* login form */
 router.get('/login', forwardAuthenticated, auth.login);
 /* handle login */
 router.post('/login', auth.postLogin);
 
-/* logout, kills session and redirects to frontpage  */
+/* logout, kills session and redirects to frontpage */
 router.get('/logout', auth.logout);
 
 router.get('/verify/:permalink/:token', async function (req, res) {
@@ -22,6 +25,13 @@ router.get('/verify/:permalink/:token', async function (req, res) {
     var permalink = req.params.permalink;
     var token = req.params.token;
     auth.verify(req, res);
+});
+
+/* follow */
+router.post('/follow/:uid', ensureAuthenticated, async function(req, res) {
+    var follows = req.params.uid;
+    var user = req.user;
+    userController.follow(req, user, follows);
 });
 
 module.exports = router;
