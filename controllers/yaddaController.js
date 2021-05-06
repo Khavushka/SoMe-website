@@ -5,7 +5,8 @@ const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
 
 // Sender brugeren videre til en post yadda side
-exports.gotoYaddaform = async function(req, uid) {
+exports.gotoYaddaform = async function(req, res) {
+	let uid = req.params.uid;
     let friend = await userSchema.findOne({uid: uid});
     if(friend) {
         return friend;  

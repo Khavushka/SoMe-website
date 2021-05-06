@@ -61,10 +61,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
     let users = await userController.getUsers({});
     let uid = req.params.uid;
     let user = req.user ? req.user.uid: null;
-    let friend = await yadda.gotoYaddaform(req, uid, {}
-        // ,{name: this.name,
-        // avatar: this.avatar} spørg niels
-    );
+    let friend = await yadda.gotoYaddaform(req, res);
     res.render('yaddaForm', {
         users,
         friend,
