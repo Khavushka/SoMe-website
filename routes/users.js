@@ -28,10 +28,10 @@ router.get('/verify/:permalink/:token', async function (req, res) {
 });
 
 /* follow */
-router.post('/follow/:uid', ensureAuthenticated, async function(req, res) {
-    var follows = req.params.uid;
+router.get('/follow/:uid', ensureAuthenticated, async function(req, res) {
     var user = req.user;
-    userController.follow(req, user, follows);
+    var follow = {user: user, follows: req.params.uid};
+    await userController.follow(req, follow);
 });
 
 module.exports = router;

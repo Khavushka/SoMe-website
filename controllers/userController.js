@@ -4,13 +4,15 @@ const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
 
 // til at følge en bruger
-exports.follow = async function(req, res, user, follows) {
+exports.follow = async function(req, res, follow) {
+    console.log(follow);
     const newFollow = new followSchema({
         user,
         follows
     });
-    await newFollow.save().then(
-        res.redirect('/feed').catch(err => console.log(err)));
+    await newFollow.save().then(function(){
+        res.redirect('/feed').catch(err => console.log(err))
+    });
 }
 
 // henter alle brugere // tjek senere om async er nødvendigt
