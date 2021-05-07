@@ -20,7 +20,7 @@ exports.follow = async function(req, res, next) {
 exports.unfollow = async function(req, res, next) {
   var uid = req.user.uid;
   var follows = req.params.uid;
-    await followSchema.findOneAndRemove({uid, follows}).then(function(){
+    await followSchema.findOneAndRemove({user: uid, follows: follows}).then(function(){
       next();
     });
 };

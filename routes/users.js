@@ -39,7 +39,7 @@ router.get('/follow/:uid', ensureAuthenticated, function(req, res, next) {
 router.get('/unfollow/:uid', ensureAuthenticated, function(req, res, next) {
     var uid = req.user.uid;
     var follows = req.params.uid;
-    userController.follow(req, res, next);
+    userController.unfollow(req, res, next);
     res.redirect('/users/yaddaPeople');
 });
 

@@ -7,7 +7,7 @@ block content
             each followee in follows
                 p #{followee.follows}
                 div
-                    a(href="/unfollow/" + followee.follows) 
+                    a(href="/users/unfollow/" + followee.follows) 
                         button.follow Unfollow
             else 
                 div
