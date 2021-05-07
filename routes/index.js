@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 const auth = require("../controllers/authController.js");
-const yadda = require('../controllers/yaddaController.js');
+const yaddaController = require('../controllers/yaddaController.js');
 const userController = require('../controllers/userController.js');
 const { ensureAuthenticated } = require('../config/auth');
 
@@ -16,19 +16,25 @@ router.get('/', function(req, res, next) {
 });
 // Feed/
 router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
-    let users = await userController.getUsers({});
     let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let uid = req.user.uid;
+    let users = await userController.getUsers(req, res);
+    let follows = await userController.getFollows(req, res);
+    console.log(follows);
+    //let yaddas = await yaddaController.getYaddas({});
     res.render('feed', {
         title: 'The feed',
         user: user,
-        users
+        users,
+        follows
+        //yaddas 
     });
     
 });
 
 // til post
 router.get('/post', ensureAuthenticated, async function(req, res, next) {
-    let users = await userController.getUsers({});
+    let users = await userController.getUsers(req, res);
     let user = req.user ? req.user.uid: null; // ? er if for det foran ?
     res.render('post', {
         title: 'New post',
@@ -47,7 +53,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
 
 // get yaddaform - hvor man som bruger indtaster selv i formular, hvem der skal sendes til
 router.get('/yaddaForm/', ensureAuthenticated, async function(req, res) {
-    let users = await userController.getUsers({});
+    let users = await userController.getUsers(req, res);
     let user = req.user ? req.user.uid: null;
     res.render('yaddaForm', {
         users,
@@ -58,10 +64,10 @@ router.get('/yaddaForm/', ensureAuthenticated, async function(req, res) {
 
 // get yaddaform med uid fra 
 router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
-    let users = await userController.getUsers({});
-    let uid = req.params.uid;
     let user = req.user ? req.user.uid: null;
-    let friend = await yadda.gotoYaddaform(req, res);
+    let users = await userController.getUsers(req, res);
+    let uid = req.params.uid;
+    let friend = await yadda.gotoYaddaform(req, res); // friend fordi at vi snakker om en vi sender besked til. SÅ derfor ikke follow
     res.render('yaddaForm', {
         users,
         friend,
@@ -74,5 +80,10 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
 router.post('/yaddaForm', async function() {
     res.render('yaddaForm');
 })
+
+//Dark/Light mode - SPØRG NIELS
+router.get('/dashboard', ensureAuthenticated, async function(req, res) {
+    res.render('dashboard');
+});
 
 module.exports = router;

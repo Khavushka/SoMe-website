@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    if user
+        main
+            input(type="text" placeholder="search")
+            each followee in follows
+                p #{followee.follows}
+                div
+                    a(href="/unfollow/" + followee.follows) 
+                        button.follow Unfollow
+            else 
+                div
+                    a(href="/findyaddapeople/") 
+                        button.follow Find Yadda people

@@ -1,3 +1,12 @@
 extends layout
 
 block content
+    if user
+        aside.containt
+            header
+                input(type="text" placeholder="search")
+                each followee in follows
+                    p #{followee.follows}
+                    div
+                        a(href="/yaddaForm/" + followee.follows) 
+                            button.follow Send Yadda

@@ -5,7 +5,9 @@ html
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/stylesheets/style.css")
+
     link(rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+    script(src="/javascripts/darkmode.js") 
   body
     header
         nav(class="main-menu")
@@ -32,6 +34,10 @@ html
                         a(href="/yaddaForm")
                             i(class="fa fa-envelope")
                             span.nav-text Send yadda
+                    li 
+                        a(href="/users/yaddaPeople")
+                            i(class="fa fa-users")
+                            span.nav-text Yadda people
                     li
                         a(href="/dashboard")
                             i(class="fa fa-tachometer")
@@ -41,22 +47,7 @@ html
                             i(class="fa fa-sign-out")
                             span.nav-text Logout
     main
-        if user
-                aside.containt
-                    header
-                        input(type="text" placeholder="search")
-                        each friend in users
-                            p #{friend.name}
-                            div.knapper
-                                div
-                                    a(href="/yaddaForm/" + friend.uid) 
-                                        button.follow Send Yadda
-                                div
-                                    a(href="/users/follow/" + friend.uid) 
-                                        button.follow Follow
-                                div
-                                    a(href="/unfollow/" + friend.uid) 
-                                        button.follow Unfollow
+        
         block content
     //- footer
     //-     div(id='cpy')

@@ -119,7 +119,7 @@ exports.postLogin = async function (req, res, next) {
         res.redirect('/users/login');
     } else { 
         passport.authenticate('local', {
-            successRedirect: '/feed',
+            successRedirect: '/feed', // når man logger ind, så bliver man taget til feed
             failureRedirect: '/users/login',
             failureFlash: true
         })(req, res, next);
