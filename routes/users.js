@@ -32,7 +32,6 @@ router.get('/follow/:uid', ensureAuthenticated, function(req, res, next) {
     var uid = req.user.uid;
     var follows = req.params.uid;
     userController.follow(req, res, next);
-    res.redirect('/users/yaddaPeople');
 });
 
 /* unfollow på yaddaPeople */
@@ -40,17 +39,36 @@ router.get('/unfollow/:uid', ensureAuthenticated, function(req, res, next) {
     var uid = req.user.uid;
     var follows = req.params.uid;
     userController.unfollow(req, res, next);
-    res.redirect('/users/yaddaPeople');
 });
 
-//yaddaPeople
-router.get('/yaddaPeople', ensureAuthenticated, async function(req, res) {
+//yaddaPeople som viser follows
+router.get('/showsfollows', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null; // ? er if for det foran ?
     let uid = req.user.uid;
+    let showsfollows = true;
     let users = await userController.getUsers(req, res);
     let follows = await userController.getFollows(req, res);
     res.render('yaddaPeople', {
         title: 'All my yaddapeople',
+        showsfollows,
+        user: user, 
+        follows,
+        users
+    });
+});
+//yaddaPeople som viser andre end follows
+
+router.get('/showsall', ensureAuthenticated, async function(req, res) {
+    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let uid = req.user.uid;
+    let showsfollows = false;
+    let users = await userController.getUsers(req, res);
+    let follows = await userController.getFollows(req, res);
+    //der skal være en form for krydsreference mellem funktionerne sådan at vi ikke 
+    //har brugere med i users som vi allerede har i follows
+    res.render('yaddaPeople', {
+        title: 'Some yaddapeople you might know',
+        showsfollows,
         user: user, 
         users,
         follows

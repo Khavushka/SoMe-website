@@ -40,7 +40,7 @@
 	  /* display: flex; */
 	  /* justify-content: center;
 	  align-items: center; */
-	  color: white;
+	  color: black;
   }
   
   .input{
@@ -230,6 +230,7 @@ main{
 	display:inline-block;
 	font-size:15px;
 	vertical-align:top;
+	margin:40px;
 }
 
 aside header{
