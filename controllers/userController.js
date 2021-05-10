@@ -29,7 +29,9 @@ exports.unfollow = async function(req, res, next) {
 exports.getUsers = async function (req, res) {
   let uid = req.user.uid;
   let follows = await followSchema.find({user: uid});
-  let users = await userSchema.find({uid: {$ne: follows.follows}}); // find tager tre parameter, en skal være null. Tredje handler om options
+  let followsarr = Object.values(follows.follows);
+  console.log(followsarr);
+  let users = await userSchema.find({uid: {$ne: followsarr}}); // find tager tre parameter, en skal være null. Tredje handler om options
   // let followsArr = [follows.follows]; // Vi bruger array bl.a. for ikke at komme til at slette i db
   // let usersArr = [users.uid];
   // followsArr.length === usersArr.length && 
