@@ -18,7 +18,6 @@ router.get('/', function(req, res, next) {
 router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
     let user = req.user ? req.user.uid: null; // ? er if for det foran ?
     let uid = req.user.uid;
-    console.log(req.user);
     let users = await userController.getUsers(req, res);
     let follows = await userController.getFollows(req, res);
     //let yaddas = await yaddaController.getYaddas({});
