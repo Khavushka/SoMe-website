@@ -27,13 +27,24 @@ exports.unfollow = async function(req, res, next) {
 
 // henter alle brugere // tjek senere om async er nødvendigt
 exports.getUsers = async function (req, res) {
-   let users = await userSchema.find({}, null,{}); // find tager tre parameter, en skal være null. Tredje handler om options
-   
+  let uid = req.user.uid;
+  let follows = await followSchema.find({user: uid});
+  let users = await userSchema.find({uid: {$ne: follows.follows}}); // find tager tre parameter, en skal være null. Tredje handler om options
+  // let followsArr = [follows.follows]; // Vi bruger array bl.a. for ikke at komme til at slette i db
+  // let usersArr = [users.uid];
+  // followsArr.length === usersArr.length && 
+  // followsArr.every(function (element) {
+  //   if (usersArr.includes(element)) {
+  //     usersArr.slice(element);
+  //   };
+  // });
+  // console.log(usersArr);
+  //  return usersArr;
    return users;
 }
 
 exports.getFollows = async function (req, res) {
   let uid = req.user.uid;
-  let follows = await followSchema.find({}, null,{}); // find uden et filter
+  let follows = await followSchema.find({user: uid}, null,{}); // find uden et filter
   return follows;
 }
