@@ -2,11 +2,28 @@ extends layout
 
 block content
     if user
+        if errors != undefined && errors.length != 0
+            each error in errors
+                div(class="error-msg" role='alert' id='a1') #{error.msg}
+        if success_msg != ''
+             div(role='alert' id='a2') #{success_msg}
+        if error_msg != ''
+            div(class="error-msg" role='alert' id='a3') #{error_msg}
+        if error != ''
+            div(class="error-msg" role='alert' id='a4') #{error}
+        each yadda in yaddas
+            div.feedBesked
+                p.content #{yadda.content}
+                p.bywhom Posted by #{yadda.bywhom} 
+                    span(class="time-right") #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
+                a(href="/replyto" + yadda.id) 
+                    button.follow Reply
+                hr
         aside.containt
             header
                 input(type="text" placeholder="search")
                 each followee in follows
                     p #{followee.follows}
                     div
-                        a(href="/yaddaForm/" + followee.follows) 
+                        a(href="/yaddaForm" + followee.follows) 
                             button.follow Send Yadda

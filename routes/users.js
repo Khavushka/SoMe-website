@@ -56,6 +56,7 @@ router.get('/showsfollows', ensureAuthenticated, async function(req, res) {
         users
     });
 });
+
 //yaddaPeople som viser andre end follows
 
 router.get('/showsall', ensureAuthenticated, async function(req, res) {
@@ -74,6 +75,7 @@ router.get('/showsall', ensureAuthenticated, async function(req, res) {
         follows
     });
 });
+
 
 module.exports = router;
 

@@ -113,6 +113,7 @@
 	-webkit-transform:translateZ(0) scale(1,1);
 	box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
 	  opacity:1;
+	  position: fixed;
 	}
 	
 	.main-menu>ul {
@@ -212,6 +213,7 @@
 	font-size:0;
 	border-radius:5px;
 	overflow:hidden;
+	position: fixed;
 }
 aside{
 	position: absolute;
@@ -342,7 +344,7 @@ justify-content: center;
   }
   .form{
 	position:absolute;
-	width: 80%;
+	/* width: 80%; */
   }
   .sendMess{
 	border-radius:50px;
@@ -397,14 +399,42 @@ justify-content: center;
   }
 
   /* Til dashboard  */
-  body {
-	padding: 25px;
-	background-color: white;
-	color: black;
-	font-size: 25px;
+
+  :root {
+	--background-primary: #fff;
+	--color-primary: #333;
   }
   
-  .dark-mode {
-	background-color: black;
-	color: white;
+  html[data-theme='dark'] {
+	--background-primary: #030303;
+	--color-primary: #ccc;
+  }
+  
+  html {
+	transition: color 300ms, background-color 300ms;
+	background: var(--background-primary);
+	color: var(--color-primary);
+  }
+  
+  h1, h2, p {
+	color: var(--color-primary);
+  }
+
+
+
+  /*Til content og bywhom*/
+
+  .feedBesked {
+	padding: 0 40px;
+  }
+
+  .time-right{
+	  /* float: left; */
+	  color: #999;
+	  font-size: 14px;
+  }
+
+  .bywhom {
+	  color: grey;
+	  font-size: 16px;
   }
