@@ -46,7 +46,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null;
     let users = await userController.getUsers(req, res);
     let uid = req.params.uid;
-    let friend = await yadda.gotoYaddaform(req, res); // friend fordi at vi snakker om en vi sender besked til. SÅ derfor ikke follow
+    let friend = await yaddaController.gotoYaddaform(req, res); // friend fordi at vi snakker om en vi sender besked til. SÅ derfor ikke follow
     res.render('yaddaForm', {
         users,
         friend,

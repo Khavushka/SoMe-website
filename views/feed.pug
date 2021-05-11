@@ -14,7 +14,7 @@ block content
         each yadda in yaddas
             div.feedBesked
                 p.content #{yadda.content}
-                p.bywhom Posted by #{yadda.bywhom} 
+                p.time-right Posted by #{yadda.bywhom} 
                     span(class="time-right") #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                 a(href="/replyto" + yadda.id) 
                     button.follow Reply
@@ -25,5 +25,5 @@ block content
                 each followee in follows
                     p #{followee.follows}
                     div
-                        a(href="/yaddaForm" + followee.follows) 
+                        a(href="/yaddaForm/" + followee.follows) 
                             button.follow Send Yadda
