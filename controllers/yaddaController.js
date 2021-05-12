@@ -22,12 +22,12 @@ exports.getYaddas = async function(req, res) {
 
 // post dine yaddas
 exports.postYadda = async function(req, res) {
-    let yaddareplies = req.yadda.replyTo;
+    let yaddareply = req.params.yadda;
     let uid = req.user.uid;
     let yadda = new yaddaSchema({
         bywhom: req.user.uid,
         content: req.body.content,
-        replyTo: yaddareplies
+        replyTo: yaddareply
     });
 //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
     yadda.save(function (err) {
@@ -49,12 +49,13 @@ exports.postYadda = async function(req, res) {
 
 
 // reply yaddas
-exports.replyTo = async function(req, res){
-    let yadda = req.params.yadda;
-    let yaddareply = await yaddaSchema.find({
-        replyTo : yadda
+exports.getReplies = async function(req, res){
+    for (id in yaddas.id) {
+        
+    let yaddareplies = await yaddaSchema.find({
+        replyTo: id
     });
-    return yaddareply;
-    res.redirect('/yaddaForm/' + yadda);
+    return yaddareplies;
+    }
 }
 
