@@ -15,15 +15,33 @@ exports.gotoYaddaform = async function(req, res) {
         return friend;
     }    
 }
-
-exports.adminUser = async function(req) {
-
-   
+exports.getYaddas = async function(req, res) {
+    let yaddas = await yaddaSchema.find({}, null, {});
+    return yaddas;
 }
 
-exports.deleteUser = async function(req) {
-
-  
+// post dine yaddas
+exports.postYadda = async function(req, res) {
+    let uid = req.user.uid;
+    let yadda = new yaddaSchema({
+        bywhom: req.user.uid,
+        content: req.body.content
+    });
+//måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
+    yadda.save(function (err) {
+        if (err) {
+            req.flash(
+                'error',
+                'Something went wrong! The post was not saved.'
+            );
+        res.redirect('/yaddaform');
+        } else {
+            req.flash(
+                'success_msg',
+                'The post was saved.'
+            );
+        res.redirect('/feed');
+        }
+    });
 }
 
- // henter yaddas

@@ -28,10 +28,14 @@ exports.unfollow = async function(req, res, next) {
 // henter alle brugere // tjek senere om async er nødvendigt
 exports.getUsers = async function (req, res) {
   let uid = req.user.uid;
-  let follows = await followSchema.find({user: uid});
-  let followsarr = Object.values(follows.follows);
-  console.log(followsarr);
-  let users = await userSchema.find({uid: {$ne: followsarr}}); // find tager tre parameter, en skal være null. Tredje handler om options
+  let follows = await followSchema.find({user: uid}); //Output fra denne find() er et array med et object for hver bruger
+  let followsArr = [];            //Vi skal bruge et array med brugernavne på follows til filteret i linje 36
+  for (item in follows) {         //for løkken iterere igennem det array vi får som output fra linje 31
+  followsArr.push(follows[item].follows); //
+  }
+  let users = await userSchema.find({uid: {$nin: followsArr}}); //det array vi har lavet bruges i filteret sammen med $nin som betyder "not in"
+  return users;
+
   // let followsArr = [follows.follows]; // Vi bruger array bl.a. for ikke at komme til at slette i db
   // let usersArr = [users.uid];
   // followsArr.length === usersArr.length && 
@@ -42,7 +46,7 @@ exports.getUsers = async function (req, res) {
   // });
   // console.log(usersArr);
   //  return usersArr;
-   return users;
+    
 }
 
 exports.getFollows = async function (req, res) {

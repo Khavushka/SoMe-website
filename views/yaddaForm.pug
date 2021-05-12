@@ -10,10 +10,10 @@ block content
             form(class="form" method='post' action='/yaddaForm')
                 if user
                 div.sendMess 
-                button(class="attachment")
                     i(class="fa fa-paperclip")
-                    textarea(id="text" name="" cols="20" rows="3" placeholder="enter your message")
-                    i(class="fa fa-camera-retro fa-lg")
+                    input(id="text" name="content" placeholder="enter your message" minlength='2')         
+                    button(type="submit")
+                        i(class="fa fa-arrow-right")      
                 if errors != undefined && errors.length != 0
                     each error in errors
                         div(class="error-msg" role='alert' id='a1') #{error.msg}
