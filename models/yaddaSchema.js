@@ -9,14 +9,13 @@ const yaddaSchema = mongoose.Schema({
         default: Date.now 
     },
     content: { 
-        type: String, 
-        
+        type: String,         
         required: true, 
         minlength: 1,
         maxlength: 200
     },
     replyTo: [{
-     type: Schema.Types.ObjectId, ref: "yaddaSchema"}]
+     type: Schema.Types.ObjectId, ref: "Yadda"}]
      /*,
     image: {                             // for image
     data: Buffer,                       // the image itself

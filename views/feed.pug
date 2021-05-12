@@ -18,6 +18,13 @@ block content
                     span(class="time-right") #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                 a(href="/replyto/" + yadda.id) 
                     button.follow Reply
+                each reply in yaddareplies
+                    div.replyBesked
+                        p.content #{reply.content}
+                        p.time-right Posted by #{reply.bywhom} 
+                            span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
+                        a(href="/replyto/" + reply.id) 
+                            button.follow Reply
                 hr
         aside.containt
             header

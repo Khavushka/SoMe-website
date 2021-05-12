@@ -21,12 +21,14 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
     let users = await userController.getUsers(req, res);
     let follows = await userController.getFollows(req, res);
     let yaddas = await yaddaController.getYaddas({});
+    let yaddareplies = await yaddaController.replyTo(req, res);
     res.render('feed', {
         title: 'The feed',
         user: user,
         users,
         follows,
-        yaddas 
+        yaddas, 
+        yaddareplies
     });    
 });
 
@@ -59,19 +61,27 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
 
 // post yaddaform
 router.post('/yaddaForm', ensureAuthenticated, async function(req, res) {
+
+console.log(yaddareplies);
+console.dir(yaddareplies);
     await yaddaController.postYadda(req, res);
-})
+});
 
 //Reply
-router.post('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
+//links er get request
+router.get('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null;
     let yadda = req.params.yadda;
-    let yaddareply = await yaddaController.replyTo(req, res);
+    let yaddareplies = await yaddaController.replyTo(req, res);
     res.render('yaddaForm', {
-        yaddareply,
+        yaddareplies,
         title: 'Write a reply', // måske friend hvis user ikke virker
         user: user
     });
+});
+
+router.get('/yaddaForm/:yadda', ensureAuthenticated, async function(req, res) {
+    
 })
 
 //Dark/Light dashboard mode 

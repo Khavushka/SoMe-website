@@ -76,6 +76,8 @@ router.get('/showsall', ensureAuthenticated, async function(req, res) {
     });
 });
 
+//router til image
+
 
 module.exports = router;
 

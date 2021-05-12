@@ -438,3 +438,11 @@ justify-content: center;
 	  color: grey;
 	  font-size: 16px;
   }
+
+  .replyBesked {
+	  margin: 30px;
+  }
+
+  hr {
+	  color: green;
+  }

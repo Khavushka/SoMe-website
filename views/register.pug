@@ -3,11 +3,19 @@ extends layout
 block content
     section
 
-        form(method='post' action='/users/register')
+        form(method='post' action='/users/register' enctype='multipart/form-data')
             div.wrapper
                 div.container
                     div.signup 
                         div.signup-form
+                            p Please enter your details to register.
+                            input.input(type='text' minlength='2' name='name' required placeholder="Name")
+                            input.input(type='text' minlength='2' name='uid' required placeholder="Username")
+                            input.input(type='email' minlength='6' name='email' required placeholder="Email")
+                            input.input(type='file' name='avatar' placeholder='optional')
+                            input.input(type='password' minlength='4' name='password' required placeholder="Password")
+                            input.input(type='password' minlength='4' name='passwordr' required placeholder="Repeat password")
+                            input.btn(class="bubbly-button" type='submit' value='Sign Up')
                             if errors != undefined && errors.length != 0
                                 each error in errors
                                     div(role='alert' id='a1') #{error.msg}
@@ -17,15 +25,3 @@ block content
                                 div(role='alert' id='a3') #{error_msg}
                             if error != ''
                                 div(role='alert' id='a4') #{error} 
-                            p Please enter your details to register.
-                            input.input(type='text' minlength='2' name='name' required placeholder="Name")
-                            br
-                            input.input(type='text' minlength='2' name='uid' required placeholder="Username")
-                            br
-                            input.input(type='email' minlength='6' name='email' required placeholder="Email")
-                            br
-                            input.input(type='password' minlength='4' name='password' required placeholder="Password")
-                            br
-                            input.input(type='password' minlength='4' name='passwordr' required placeholder="Repeat password")
-                            br
-                            input.btn(class="bubbly-button" type='submit' value='Sign Up')
