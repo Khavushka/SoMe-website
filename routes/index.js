@@ -78,7 +78,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
 
 // post yaddaform
 router.post('/yaddaForm', async function() {
-    res.render('yaddaForm');
+    res.redirect('/feed');
 })
 
 //Dark/Light mode - SPØRG NIELS
