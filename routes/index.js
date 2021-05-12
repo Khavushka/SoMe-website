@@ -41,6 +41,8 @@ router.get('/yaddaForm/', ensureAuthenticated, async function(req, res) {
     });
 });
 
+
+
 // get yaddaform med uid fra 
 router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null;
@@ -62,7 +64,14 @@ router.post('/yaddaForm', ensureAuthenticated, async function(req, res) {
 
 //Reply
 router.post('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
-    await yaddaController.postYadda(req, res);
+    let user = req.user ? req.user.uid: null;
+    let yadda = req.params.yadda;
+    let yaddareply = await yaddaController.replyTo(req, res);
+    res.render('yaddaForm', {
+        yaddareply,
+        title: 'Write a reply', // måske friend hvis user ikke virker
+        user: user
+    });
 })
 
 //Dark/Light dashboard mode 

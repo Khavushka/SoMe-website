@@ -12,7 +12,7 @@ exports.follow = async function(req, res, next) {
       follows
     });
     await newFollow.save().then(function(){
-    res.redirect('/users/showsfollows');
+    res.redirect('/users/showsall');
     });
 }
 
@@ -30,6 +30,7 @@ exports.getUsers = async function (req, res) {
   let uid = req.user.uid;
   let follows = await followSchema.find({user: uid}); //Output fra denne find() er et array med et object for hver bruger
   let followsArr = [];            //Vi skal bruge et array med brugernavne på follows til filteret i linje 36
+  followsArr.push(uid);
   for (item in follows) {         //for løkken iterere igennem det array vi får som output fra linje 31
   followsArr.push(follows[item].follows); //
   }

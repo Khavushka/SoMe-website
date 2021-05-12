@@ -45,3 +45,13 @@ exports.postYadda = async function(req, res) {
     });
 }
 
+// reply yaddas
+exports.replyTo = async function(req, res){
+    let yadda = req.params.yadda;
+    let yaddareply = await yaddaSchema.findOne({
+        _id : yadda
+    });
+    return yaddareply;
+    res.redirect('/yaddaForm');
+}
+

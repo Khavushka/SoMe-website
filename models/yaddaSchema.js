@@ -10,11 +10,7 @@ const yaddaSchema = mongoose.Schema({
     },
     content: { 
         type: String, 
-        // match: /([a-z])\w+,
-        /*validate: {
-            validator: function(v) {
-            return /^[A-Z][A-Za-z]{2}\d{2}[a-z]{0,1}$/.test(v);
-        },*/
+        
         required: true, 
         minlength: 1,
         maxlength: 200
