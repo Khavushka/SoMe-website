@@ -4,6 +4,28 @@ const followSchema = require('../models/followSchema');
 const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
 
+//Til Hashtag
+// const hashTag = function(){
+//     const reqex = /(@)(\w+)/g;
+//     let subst = `<a href=''>$1$2</a>`;
+//     let txt = yadda.replace(reqex, subst);
+//     return txt;
+// };
+
+// exports.getWithHashtag = async function (req, res){
+//     let query = {};
+//     let subtitle = ' ';
+//     if (req.params.hashtag){
+//         let hashtag ='#' + req.params.hashtag;
+//         var reqex = new ReqExp(hasgtag, "i");
+//         query = {
+//             content: reqex
+//         };
+//         subtitle ="Hashtag: " + hashtag;
+//     }
+//     const yaddas = await Yadda.find, {sort: {created: -1}});
+// }
+
 // Sender brugeren videre til en post yadda side
 exports.gotoYaddaform = async function(req, res) {
 	let uid = req.params.uid;
@@ -49,13 +71,38 @@ exports.postYadda = async function(req, res) {
 
 
 // reply yaddas
-exports.getReplies = async function(req, res){
-    for (id in yaddas.id) {
+exports.getReplies = async function(req, yaddas){
+    let yaddaids = [];            
+    for (item in yaddas) {         
+    yaddaids.push(yaddas[item].id); 
+    }
+    console.log(yaddaids);
+    yaddaids.forEach(async function(item, index) {
+        let yaddareplies = await yaddaSchema.find({
+            replyTo: item
+        });
+        return yaddareplies;
+
+       }
+
+    );
+
+//     for (item in yaddas[item.id]) {
         
+//     let yaddareplies = await yaddaSchema.find({
+//         replyTo: id
+//     });
+//     console.log(yaddareplies);
+//     return yaddareplies;
+//    }
+}
+
+/*yaddas.forEach(function(item.id) {
     let yaddareplies = await yaddaSchema.find({
         replyTo: id
     });
+    console.log(yaddareplies);
     return yaddareplies;
-    }
-}
+   }
+});*/
 
