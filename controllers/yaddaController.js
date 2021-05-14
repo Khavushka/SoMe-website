@@ -5,12 +5,16 @@ const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
 
 //Til Hashtag
-// const hashTag = function(){
+// const hashTag = function(yadda){
 //     const reqex = /(@)(\w+)/g;
 //     let subst = `<a href=''>$1$2</a>`;
 //     let txt = yadda.replace(reqex, subst);
 //     return txt;
 // };
+
+//const userId = function(yadda){
+
+//}
 
 // exports.getWithHashtag = async function (req, res){
 //     let query = {};
@@ -77,24 +81,18 @@ exports.getReplies = async function(req, yaddas){
     yaddaids.push(yaddas[item].id); 
     }
     console.log(yaddaids);
-    yaddaids.forEach(async function(item, index) {
-        let yaddareplies = await yaddaSchema.find({
-            replyTo: item
-        });
-        return yaddareplies;
 
-       }
-
-    );
-
-//     for (item in yaddas[item.id]) {
+    yaddaids.map(async function (index) {
         
-//     let yaddareplies = await yaddaSchema.find({
-//         replyTo: id
-//     });
-//     console.log(yaddareplies);
-//     return yaddareplies;
-//    }
+    let yaddareplies = await yaddaSchema.find({replyTo: index});
+
+    });
+
+    console.log(yaddareplies);
+    console.dir(yaddareplies);
+
+    return yaddareplies;   
+    
 }
 
 /*yaddas.forEach(function(item.id) {
@@ -106,3 +104,19 @@ exports.getReplies = async function(req, yaddas){
    }
 });*/
 
+//     for (item in yaddas[item.id]) {
+        
+//     let yaddareplies = await yaddaSchema.find({
+//         replyTo: id
+//     });
+//     console.log(yaddareplies);
+//     return yaddareplies;
+//    }
+
+ /*let yaddareplies = async function myfunction(item) {
+        await yaddaSchema.find({replyTo: item});
+    }
+    yaddaids.forEach(myfunction);
+
+    console.log(yaddareplies);
+    return yaddareplies;*/

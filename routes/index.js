@@ -22,7 +22,7 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
     let follows = await userController.getFollows(req, res);
     let yaddas = await yaddaController.getYaddas(req, res);
     let yaddareplies = await yaddaController.getReplies(req, yaddas);
-    console.log(yaddareplies);
+    //console.log(yaddareplies);
     res.render('feed', {
         title: 'The feed',
         user: user,

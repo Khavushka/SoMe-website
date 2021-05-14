@@ -15,7 +15,7 @@ const yaddaSchema = mongoose.Schema({
         maxlength: 200
     },
     replyTo: [{
-     type: Schema.Types.ObjectId, ref: "Yadda"}]
+        type: Schema.Types.ObjectId, ref: "Yadda"}]
      /*,
     image: {                             // for image
     data: Buffer,                       // the image itself
