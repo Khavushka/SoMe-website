@@ -420,6 +420,11 @@ justify-content: center;
 	color: var(--color-primary);
   }
 
+  .tilMode {	  
+  width: 300px;
+  padding: 40px;
+  }
+
 
 
   /*Til content og bywhom*/

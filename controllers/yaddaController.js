@@ -84,12 +84,13 @@ exports.getReplies = async function(req, yaddas){
 
     yaddaids.map(async function (index) {
         
-    let yaddareplies = await yaddaSchema.find({replyTo: index});
 
-    });
+    //har kommenteret linijen, det gav en fejl.
+    // let yaddareplies = await yaddaSchema.find({replyTo: index});
+
+    // });
 
     console.log(yaddareplies);
-    console.dir(yaddareplies);
 
     return yaddareplies;   
     

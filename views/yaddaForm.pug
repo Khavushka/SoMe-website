@@ -2,8 +2,8 @@ extends layout
 
 block content
     div.wrapper-chat
-        div(class="container fixed rev")
-            ul(class="message-body")
+        //- div(class="container fixed rev")
+        //-     ul(class="message-body")
     h1 #{title}
     footer
         div.bottom
@@ -11,7 +11,7 @@ block content
                 if user
                 div.sendMess 
                     i(class="fa fa-paperclip")
-                    input(id="text" name="content" placeholder="enter your message" minlength='2')         
+                    textarea(id="text" rows="7" cols="50" name="content" placeholder="enter your message" minlength='2')         
                     button(type="submit")
                         i(class="fa fa-arrow-right")      
                 if errors != undefined && errors.length != 0
