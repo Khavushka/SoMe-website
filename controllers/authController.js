@@ -17,7 +17,7 @@ exports.register = function (req, res) {
 };
 
 exports.postRegister = function (req, res) {
-    let { name, uid, email, password, passwordr } = req.body;
+    let { name, uid, email, avatar, password, passwordr } = req.body;
     let errors = [];
 
     if (!name || !uid || !email || !password || !passwordr) {
@@ -57,6 +57,7 @@ exports.postRegister = function (req, res) {
                   const newUser = new userSchema({
                       name,
                       uid,
+                      avatar,
                       email,
                       password
                   });

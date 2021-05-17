@@ -22,7 +22,6 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
     let follows = await userController.getFollows(req, res);
     let yaddas = await yaddaController.getYaddas(req, res);
     let yaddareplies = await yaddaController.getReplies(req, yaddas);
-    //console.log(yaddareplies);
     res.render('feed', {
         title: 'The feed',
         user: user,
@@ -72,7 +71,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
 });
 
 // post yaddaform
-router.post('/yaddaForm', ensureAuthenticated, async function(req, res) {
+router.post('/yaddaForm', getWithHashtag, ensureAuthenticated, async function(req, res) {
     let yaddareply = "";
     await yaddaController.postYadda(req, res);
 });
@@ -89,7 +88,7 @@ router.get('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
 
 
 // post yaddas som en reply
-router.post('/yaddaForm/:yadda', ensureAuthenticated, async function(req, res) {
+router.post('/yaddaForm/:yadda', getWithHashtag, ensureAuthenticated, async function(req, res) {
     let yadda = req.params.yadda;
     await yaddaController.postYadda(req, res);
     });

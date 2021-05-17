@@ -20,6 +20,11 @@ router.post('/login', auth.postLogin);
 /* logout, kills session and redirects to frontpage */
 router.get('/logout', auth.logout);
 
+//Til at vise billedet frem
+router.get('/getimage/:uid', ensureAuthenticated);
+
+
+
 router.get('/verify/:permalink/:token', async function (req, res) {
 /* verify email */
     var permalink = req.params.permalink;

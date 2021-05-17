@@ -4,31 +4,55 @@ const followSchema = require('../models/followSchema');
 const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
 
-//Til Hashtag
+// Til Hashtag
 // const hashTag = function(yadda){
-//     const reqex = /(@)(\w+)/g;
-//     let subst = `<a href=''>$1$2</a>`;
-//     let txt = yadda.replace(reqex, subst);
-//     return txt;
+//     const regex = /(\#)(\w+)/g;
+//     let subst = `<a href='/her skal være link/'>$1$2</a>`;
+//     let txt = yadda.replace(regex, subst);
 // };
 
-//const userId = function(yadda){
+// const userId = function(yadda){
+//     const reqex = /(@)(\w+)/g;
+//     let subst = `<a href='link til'>$1$2</a>`;
+//     let txt = yadda.replace(reqex, subst);
+//     return txt;
+// }
 
-//}
+// const linkiHashes = function(yaddas){
+//     for (let i = 0; i < yaddas.length; i++) {
+//         let repltxt = hashTag(yaddas[i].content);
+//         yaddas[i].content = repltxt;
+//     }
+// }
+
+// const linkifyHandles = function(yaddas){
+//     for(let i = 0; i < yaddas.length; i++) {
+//         let repltxt = userId(yaddas[i].content);
+//         yaddas[i].content = repltxt;
+//     }
+// }
 
 // exports.getWithHashtag = async function (req, res){
 //     let query = {};
 //     let subtitle = ' ';
-//     if (req.params.hashtag){
-//         let hashtag ='#' + req.params.hashtag;
-//         var reqex = new ReqExp(hasgtag, "i");
+//     if(req.params.hashtag){
+//         let hashtag = '#' + req.params.hashtag;
+//         let regex = new RegExp(hashtag, "i");
 //         query = {
 //             content: reqex
 //         };
-//         subtitle ="Hashtag: " + hashtag;
+//         subtitle = 'Hashtag:' + hashtag;
 //     }
-//     const yaddas = await Yadda.find, {sort: {created: -1}});
+//     const yaddas = await yaddaSchema.find(query, {sort: {created: -1}});
+//     linkifyHashes(yaddas);
+//     linkifyHandles(yaddas);
+//     res.render('feed', {
+//         user: req.user,
+//         subtitle: subtitle,
+//         yaddas
+//     })
 // }
+
 
 // Sender brugeren videre til en post yadda side
 exports.gotoYaddaform = async function(req, res) {
@@ -42,7 +66,7 @@ exports.gotoYaddaform = async function(req, res) {
     }    
 }
 exports.getYaddas = async function(req, res) {
-    let yaddas = await yaddaSchema.find({}, null, {});
+    let yaddas = await yaddaSchema.find({replyTo: {$eq: null}});
     return yaddas;
 }
 
@@ -80,15 +104,8 @@ exports.getReplies = async function(req, yaddas){
     for (item in yaddas) {         
     yaddaids.push(yaddas[item].id); 
     }
-    console.log(yaddaids);
+    let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}});
 
-    yaddaids.map(async function (index) {
-        
-
-    //har kommenteret linijen, det gav en fejl.
-    // let yaddareplies = await yaddaSchema.find({replyTo: index});
-
-    // });
 
     console.log(yaddareplies);
 

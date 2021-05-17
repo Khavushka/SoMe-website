@@ -11,21 +11,28 @@ block content
             div(class="error-msg" role='alert' id='a3') #{error_msg}
         if error != ''
             div(class="error-msg" role='alert' id='a4') #{error}
+            
+        //- Yadda posts og replies
         each yadda in yaddas
-            div.feedBesked
-                p.content #{yadda.content}
-                p.time-right Posted by #{yadda.bywhom} 
-                    span(class="time-right") #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
-                a(href="/replyto/" + yadda.id) 
-                    button.follow Reply
+            if (yadda.replyTo === null)
+                //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
+                div.feedBesked
+                    img #{avatar}
+                    p.content #{yadda.content}
+                        span.time-right Posted by #{yadda.bywhom}
+                        span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
+                 
+                    //- Replies
                 each reply in yaddareplies
-                    div.replyBesked
-                        p.content #{reply.content}
-                        p.time-right Posted by #{reply.bywhom} 
-                            span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                        a(href="/replyto/" + reply.id) 
-                            button.follow Reply
-                hr
+                    if (reply.replyTo == yadda.id)
+                        div.replyBesked
+                            p.content #{reply.content}
+                                span.time-right Posted by #{reply.bywhom}
+                                span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
+                
+                a(href="/replyto/" + yadda.id) 
+                    button.follow-reply Reply
+            hr
         aside.containt
             header
                 input(type="text" placeholder="search")
