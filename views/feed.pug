@@ -18,7 +18,7 @@ block content
                 //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 div.feedBesked
                     p.content #{yadda.content}
-                        img(src="/index/getimage/" + yadda.id)
+                        img.delimg(src="/index/getimage/" + yadda.id)
                         img(src="/users/getimage/" + yadda.bywhom) 
                         span.time-right Posted by #{yadda.bywhom}
                         span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
@@ -43,7 +43,7 @@ block content
                         div.card
                             div.firstinfo
                                 img(src="/users/getimage/" + followee.follows)
-                                h1 #{followee.follows}
+                                h1.nickname #{followee.follows}
                                 p
                                     a(href="/yaddaForm/" + followee.follows) 
                                         button.follow Send Yadda

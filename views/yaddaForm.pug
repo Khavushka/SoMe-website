@@ -4,22 +4,22 @@ block content
     div.wrapper-chat
         //- div(class="container fixed rev")
         //-     ul(class="message-body")
-    h1 #{title}
-    footer
-        div.bottom
-            form(class="form" method='post' action='/yaddaForm/' + yadda)
-                if user
-                div.sendMess 
-                    input(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
-                    textarea(id="text" rows="7" cols="50" name="content" placeholder="enter your message" minlength='2') 
-                    button(type="submit")
-                        i(class="fa fa-arrow-right")      
-                if errors != undefined && errors.length != 0
-                    each error in errors
-                        div(class="error-msg" role='alert' id='a1') #{error.msg}
-                if success_msg != ''
-                    div(role='alert' id='a2') #{success_msg}
-                if error_msg != ''
-                    div(class="error-msg" role='alert' id='a3') #{error_msg}
-                if error != ''
-                    div(class="error-msg" role='alert' id='a4') #{error}
+    main
+        h1 #{title}
+            div
+                form(class="form" method='post' action='/yaddaForm/' + yadda)
+                    if user
+                    div 
+                        input(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
+                        textarea(id="text" rows="7" cols="50" name="content" placeholder="enter your message" minlength='2') 
+                        button(type="submit")
+                            i(class="fa fa-arrow-right")      
+                    if errors != undefined && errors.length != 0
+                        each error in errors
+                            div(class="error-msg" role='alert' id='a1') #{error.msg}
+                    if success_msg != ''
+                        div(role='alert' id='a2') #{success_msg}
+                    if error_msg != ''
+                        div(class="error-msg" role='alert' id='a3') #{error_msg}
+                    if error != ''
+                        div(class="error-msg" role='alert' id='a4') #{error}
