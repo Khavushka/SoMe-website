@@ -20,10 +20,10 @@ router.post('/login', auth.postLogin);
 /* logout, kills session and redirects to frontpage */
 router.get('/logout', auth.logout);
 
-//Til at vise billedet frem
-router.get('/getimage/:uid', ensureAuthenticated);
-
-
+//Til at vise avatar frem
+router.get('/getimage/:uid', ensureAuthenticated, auth.lookupImage, async function(req, res) {
+    let query = req.params.uid; 
+}); 
 
 router.get('/verify/:permalink/:token', async function (req, res) {
 /* verify email */

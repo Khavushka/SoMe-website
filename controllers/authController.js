@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const randomstring = require("randomstring");
+const fs = require('fs');
+const formidable = require('formidable');
 
 const userSchema = require('../models/userSchema');
 const VerifyEmail = require('../config/nodemail');
@@ -17,7 +19,11 @@ exports.register = function (req, res) {
 };
 
 exports.postRegister = function (req, res) {
-    let { name, uid, email, avatar, password, passwordr } = req.body;
+    let form = new formidable.IncomingForm();
+    form.parse(req, async function(err, fields, files) {
+        if (err) {console.error(err);}
+
+    let { name, uid, email, avatar, password, passwordr } = fields;
     let errors = [];
 
     if (!name || !uid || !email || !password || !passwordr) {
@@ -40,9 +46,9 @@ exports.postRegister = function (req, res) {
             password,
             passwordr
         });
-    } else {
-        userSchema.findOne({ uid: uid })
-            .then( function (user) {
+    } 
+    let user = userSchema.findOne({ uid: uid })
+            .then( async function (user) { // tjek om async
               if (user) {
                 errors.push({ msg: 'Email already exists' });
                 res.render('register', {
@@ -57,16 +63,17 @@ exports.postRegister = function (req, res) {
                   const newUser = new userSchema({
                       name,
                       uid,
-                      avatar,
                       email,
                       password
                   });
-                    var permalink = req.body.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
+                    var permalink = fields.uid.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
                     var verification_token = randomstring.generate({
                     length: 64
                     });
                     newUser.verify_token = verification_token;
                     newUser.permalink = permalink;
+                    newUser.avatar.data = await fs.readFileSync(files.avatar.path) // tjek om await er nødvendigt //read uploaded image
+                    newUser.avatar.contentType = files.avatar.type;
 
                   bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
                       if (err) throw err;
@@ -84,8 +91,8 @@ exports.postRegister = function (req, res) {
                   });
               }
         });
-    }
-};
+    });
+}
 
 //Tilpasset fra https://stackoverflow.com/questions/28847491/verification-email-with-token-in-passport-js
 exports.verify = function (req, res) {
@@ -131,4 +138,13 @@ exports.logout = function (req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
+};
+
+//dzsh@iba.dk
+exports.lookupImage = async function (req, res) {
+    let query = req.params.uid;
+    console.log(query);
+    let user = await userSchema.findOne({uid: query});
+    res.contentType(user.avatar.contentType);
+    res.send(user.avatar.data);
 };

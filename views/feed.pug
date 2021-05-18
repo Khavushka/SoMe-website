@@ -17,8 +17,9 @@ block content
             if (yadda.replyTo === null)
                 //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 div.feedBesked
-                    img #{avatar}
                     p.content #{yadda.content}
+                        img(src="/index/getimage/" + yadda.id)
+                        img(src="/users/getimage/" + yadda.bywhom) 
                         span.time-right Posted by #{yadda.bywhom}
                         span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                  
@@ -27,6 +28,7 @@ block content
                     if (reply.replyTo == yadda.id)
                         div.replyBesked
                             p.content #{reply.content}
+                                img(src="/users/getimage/" + reply.bywhom) 
                                 span.time-right Posted by #{reply.bywhom}
                                 span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                 
@@ -37,7 +39,11 @@ block content
             header
                 input(type="text" placeholder="search")
                 each followee in follows
-                    p #{followee.follows}
-                    div
-                        a(href="/yaddaForm/" + followee.follows) 
-                            button.follow Send Yadda
+                    div.contact
+                        div.card
+                            div.firstinfo
+                                img(src="/users/getimage/" + followee.follows)
+                                h1 #{followee.follows}
+                                p
+                                    a(href="/yaddaForm/" + followee.follows) 
+                                        button.follow Send Yadda

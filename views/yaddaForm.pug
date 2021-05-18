@@ -10,8 +10,8 @@ block content
             form(class="form" method='post' action='/yaddaForm/' + yadda)
                 if user
                 div.sendMess 
-                    i(class="fa fa-paperclip")
-                    textarea(id="text" rows="7" cols="50" name="content" placeholder="enter your message" minlength='2')         
+                    input(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
+                    textarea(id="text" rows="7" cols="50" name="content" placeholder="enter your message" minlength='2') 
                     button(type="submit")
                         i(class="fa fa-arrow-right")      
                 if errors != undefined && errors.length != 0

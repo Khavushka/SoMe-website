@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const followSchema = require('../models/followSchema');
 const userSchema = require('../models/userSchema');
 const yaddaSchema = require('../models/yaddaSchema')
+const fs = require('fs');
+const formidable = require('formidable');
 
 // Til Hashtag
 // const hashTag = function(yadda){
@@ -72,6 +74,11 @@ exports.getYaddas = async function(req, res) {
 
 // post dine yaddas
 exports.postYadda = async function(req, res) {
+    let form = new formidable.IncomingForm();
+    form.parse(req, async function(err, fields, files) {
+        if (err) {console.error(err);}
+    
+    let { content, image} = fields; // fra vores yaddaform
     let yaddareply = req.params.yadda;
     let uid = req.user.uid;
     let yadda = new yaddaSchema({
@@ -79,6 +86,8 @@ exports.postYadda = async function(req, res) {
         content: req.body.content,
         replyTo: yaddareply
     });
+    yadda.image.data = await fs.readFileSync(files.image.path) // tjek om await er nødvendigt //read uploaded image
+    yadda.image.contentType = files.image.type;
 //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
     yadda.save(function (err) {
         if (err) {
@@ -94,8 +103,18 @@ exports.postYadda = async function(req, res) {
             );
         res.redirect('/feed');
         }
+        });
     });
 }
+//Kig her imorgen
+//dzsh@iba.dk
+exports.lookupYaddaImage = async function (req, res) {
+    let query = req.params.bywhom;
+    console.log(query);
+    let yadda = await yaddaSchema.findOne({bywhom: query});
+    res.contentType(yadda.image.contentType);
+    res.send(yadda.image.data);
+};
 
 
 // reply yaddas
@@ -112,6 +131,7 @@ exports.getReplies = async function(req, yaddas){
     return yaddareplies;   
     
 }
+
 
 /*yaddas.forEach(function(item.id) {
     let yaddareplies = await yaddaSchema.find({

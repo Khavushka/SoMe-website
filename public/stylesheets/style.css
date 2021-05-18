@@ -257,6 +257,36 @@ aside input::placeholder{
 	color:#fff;
 }
 
+/* ------------Til follows--------------- */
+.contact{
+	position: relative;
+
+}
+
+.card{
+	padding: 20px;
+	border-radius: 3px;
+	background-color: white;
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+	position: relative;
+	overflow: hidden;
+}
+
+.firstinfo{
+	flex-direction: row;
+	z-index: 2;
+	position: relative;
+}
+	img{
+		border-radius: 50%;
+		width: 120px;
+		height: 120px;
+	}
+	 
+h1 {
+	font-size: 1.8em;
+}
+
 
 /*--------------- Styling til tre knapper på layout--------- */
 

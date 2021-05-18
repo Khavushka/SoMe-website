@@ -15,12 +15,12 @@ const yaddaSchema = mongoose.Schema({
         maxlength: 200
     },
     replyTo: {
-        type: Schema.Types.ObjectId, ref: "Yadda", default: null}
-     /*,
+        type: Schema.Types.ObjectId, ref: "Yadda", default: null},
+     
     image: {                             // for image
     data: Buffer,                       // the image itself
     contentType: String                 // the mimetype
-    }*/
+    }
 });
 
 //var User  = mongoose.model('User', userSchema);

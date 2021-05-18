@@ -10,8 +10,10 @@ block content
                     a(href="/users/showsall") 
                         button.follow Find Yadda people
                 each followee in follows
-                    p #{followee.follows}
-                    div
+                    div.uid
+
+                        img(src="/users/getimage/" + followee.follows) 
+                        p #{followee.follows}
                         a(href="/users/unfollow/" + followee.follows) 
                             button.follow Unfollow
             if !showsfollows
@@ -21,6 +23,7 @@ block content
                         button.follow Show your follows
                 div
                     each user in users
+                        img(src="/users/getimage/" + user.uid)
                         p #{user.name}
                         div
                             a(href="/users/follow/" + user.uid) 

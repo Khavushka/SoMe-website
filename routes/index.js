@@ -71,7 +71,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
 });
 
 // post yaddaform
-router.post('/yaddaForm', getWithHashtag, ensureAuthenticated, async function(req, res) {
+router.post('/yaddaForm', ensureAuthenticated, async function(req, res) {
     let yaddareply = "";
     await yaddaController.postYadda(req, res);
 });
@@ -85,10 +85,8 @@ router.get('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
     res.redirect('/yaddaForm/' + yadda);
 });
 
-
-
 // post yaddas som en reply
-router.post('/yaddaForm/:yadda', getWithHashtag, ensureAuthenticated, async function(req, res) {
+router.post('/yaddaForm/:yadda', ensureAuthenticated, async function(req, res) {
     let yadda = req.params.yadda;
     await yaddaController.postYadda(req, res);
     });
@@ -97,5 +95,10 @@ router.post('/yaddaForm/:yadda', getWithHashtag, ensureAuthenticated, async func
 router.get('/dashboard', ensureAuthenticated, async function(req, res) {
     res.render('dashboard');
 });
+
+//Til at vise billedet frem på yaddas
+router.get('/getimage/:bywhom', ensureAuthenticated, yaddaController.lookupYaddaImage, async function(req, res) {
+    let query = req.params.bywhom; 
+}); 
 
 module.exports = router;
