@@ -78,7 +78,7 @@ exports.postYadda = async function(req, res) {
     form.parse(req, async function(err, fields, files) {
         if (err) {console.error(err);}
     
-    let { content} = fields; // fra vores yaddaform
+    let {content} = fields; // fra vores yaddaform
     let yaddareply = req.params.yadda;
     let uid = req.user.uid;
 
@@ -87,11 +87,10 @@ exports.postYadda = async function(req, res) {
         content,
         replyTo: yaddareply
     });
-    if (files.image) {
     yadda.image.data = await fs.readFileSync(files.image.path) // tjek om await er nødvendigt //read uploaded image
     yadda.image.contentType = files.image.type;
     //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
-    }
+
         yadda.save(function (err) {
             if (err) {
                 req.flash(
@@ -113,7 +112,8 @@ exports.postYadda = async function(req, res) {
 //dzsh@iba.dk
 exports.lookupYaddaImage = async function (req, res) {
     let query = req.params.id;
-    let yadda = await yaddaSchema.findOne({id: query});
+    console.log(query);
+    let yadda = await yaddaSchema.findOne({_id: query});
     res.contentType(yadda.image.contentType);
     res.send(yadda.image.data);
 };

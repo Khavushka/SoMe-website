@@ -23,7 +23,7 @@ exports.postRegister = function (req, res) {
     form.parse(req, async function(err, fields, files) {
         if (err) {console.error(err);}
 
-    let { name, uid, email, avatar, password, passwordr } = fields;
+    let { name, uid, email, password, passwordr } = fields;
     let errors = [];
 
     if (!name || !uid || !email || !password || !passwordr) {
