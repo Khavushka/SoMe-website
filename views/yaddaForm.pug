@@ -3,13 +3,12 @@ extends layout
 block content
         h1 #{title}
         footer  
-                div.input-area
-                    form(class="form" method='post' action='/yaddaForm/' + yadda)  
-                        if user     
-                            div.input-wrapper
+                div.inputarea
+                    form(class="form" method='post' action='/yaddaForm/' + yadda)      
+                            div.inputwrapper
                                 input(type="text" name="content")
                                 input(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
-                            button(type="submit" class="send-btn") Submit 
+                                button(type="submit" class="sendbtn") Submit 
 
                             if errors != undefined && errors.length != 0
                                 each error in errors

@@ -19,7 +19,7 @@ const yaddaSchema = mongoose.Schema({
      
     image: {                             // for image
     data: Buffer,                       // the image itself
-    contentType: String,                // the mimetype
+    contentType: String                // the mimetype
     }
 });
 
