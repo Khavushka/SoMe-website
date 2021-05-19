@@ -55,3 +55,13 @@ exports.getFollows = async function (req, res) {
   let follows = await followSchema.find({user: uid}, null,{}); // find uden et filter
   return follows;
 }
+
+// dzsh@iba.dk
+// Henter avatar til user
+exports.lookupAvatar = async function (req, res) {
+  let query = req.params.uid;
+  console.log(query);
+  let user = await userSchema.findOne({uid: query});
+  res.contentType(user.avatar.contentType);
+  res.send(user.avatar.data);
+};

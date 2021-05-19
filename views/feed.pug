@@ -18,8 +18,8 @@ block content
                 //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 div.feedBesked
                     p.content #{yadda.content}
-                        img.delimg(src="/index/getimage/" + yadda.id)
-                        img(src="/users/getimage/" + yadda.bywhom) 
+                        img.delimg(src="/users/getimage/" + yadda.bywhom)
+                        img(src="/getimage/" + yadda.id) 
                         span.time-right Posted by #{yadda.bywhom}
                         span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                  
@@ -28,7 +28,8 @@ block content
                     if (reply.replyTo == yadda.id)
                         div.replyBesked
                             p.content #{reply.content}
-                                img(src="/users/getimage/" + reply.bywhom) 
+                                img.delimg(src="/users/getimage/" + reply.bywhom)
+                                img(src="/getimage/" + reply.id) 
                                 span.time-right Posted by #{reply.bywhom}
                                 span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                 

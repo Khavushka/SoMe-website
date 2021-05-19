@@ -97,8 +97,9 @@ router.get('/dashboard', ensureAuthenticated, async function(req, res) {
 });
 
 //Til at vise billedet frem på yaddas
-router.get('/getimage/:bywhom', ensureAuthenticated, yaddaController.lookupYaddaImage, async function(req, res) {
-    let query = req.params.bywhom; 
+router.get('/getimage/:id', ensureAuthenticated, yaddaController.lookupYaddaImage, async function(req, res) {
+    let query = req.params.id; 
 }); 
+
 
 module.exports = router;

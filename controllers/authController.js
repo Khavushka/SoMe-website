@@ -140,11 +140,3 @@ exports.logout = function (req, res) {
     res.redirect('/');
 };
 
-//dzsh@iba.dk
-exports.lookupImage = async function (req, res) {
-    let query = req.params.uid;
-    console.log(query);
-    let user = await userSchema.findOne({uid: query});
-    res.contentType(user.avatar.contentType);
-    res.send(user.avatar.data);
-};

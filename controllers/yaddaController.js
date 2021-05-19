@@ -106,12 +106,12 @@ exports.postYadda = async function(req, res) {
         });
     });
 }
-//Kig her imorgen
+
 //dzsh@iba.dk
 exports.lookupYaddaImage = async function (req, res) {
-    let query = req.params.bywhom;
+    let query = req.params.id;
     console.log(query);
-    let yadda = await yaddaSchema.findOne({bywhom: query});
+    let yadda = await yaddaSchema.findOne({id: query});
     res.contentType(yadda.image.contentType);
     res.send(yadda.image.data);
 };

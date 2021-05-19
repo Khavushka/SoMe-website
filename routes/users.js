@@ -21,7 +21,7 @@ router.post('/login', auth.postLogin);
 router.get('/logout', auth.logout);
 
 //Til at vise avatar frem
-router.get('/getimage/:uid', ensureAuthenticated, auth.lookupImage, async function(req, res) {
+router.get('/getimage/:uid', ensureAuthenticated, userController.lookupAvatar, async function(req, res) {
     let query = req.params.uid; 
 }); 
 
