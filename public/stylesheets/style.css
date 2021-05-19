@@ -335,6 +335,9 @@ p {
 }
 
 /*Til content og bywhom*/
+.bloksTilYadda{
+	padding: 0 40px;
+}
 
 .feedBesked {
   padding: 0 40px;

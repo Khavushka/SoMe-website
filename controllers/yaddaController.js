@@ -87,9 +87,11 @@ exports.postYadda = async function(req, res) {
         content,
         replyTo: yaddareply
     });
+    if (files.image) {
     yadda.image.data = await fs.readFileSync(files.image.path) // tjek om await er nødvendigt //read uploaded image
     yadda.image.contentType = files.image.type;
-//måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
+    //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
+    }
         yadda.save(function (err) {
             if (err) {
                 req.flash(
@@ -111,7 +113,6 @@ exports.postYadda = async function(req, res) {
 //dzsh@iba.dk
 exports.lookupYaddaImage = async function (req, res) {
     let query = req.params.id;
-    console.log(query);
     let yadda = await yaddaSchema.findOne({id: query});
     res.contentType(yadda.image.contentType);
     res.send(yadda.image.data);
@@ -125,9 +126,6 @@ exports.getReplies = async function(req, yaddas){
     yaddaids.push(yaddas[item].id); 
     }
     let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}});
-
-
-    console.log(yaddareplies);
 
     return yaddareplies;   
     

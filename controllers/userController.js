@@ -60,7 +60,6 @@ exports.getFollows = async function (req, res) {
 // Henter avatar til user
 exports.lookupAvatar = async function (req, res) {
   let query = req.params.uid;
-  console.log(query);
   let user = await userSchema.findOne({uid: query});
   res.contentType(user.avatar.contentType);
   res.send(user.avatar.data);

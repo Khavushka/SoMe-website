@@ -11,33 +11,34 @@ block content
             div(class="error-msg" role='alert' id='a3') #{error_msg}
         if error != ''
             div(class="error-msg" role='alert' id='a4') #{error}
-            
-        //- Yadda posts og replies
-        each yadda in yaddas
-            if (yadda.replyTo === null)
-                //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
-                div.feedBesked
-                    p.content #{yadda.content}
-                        img.delimg(src="/users/getimage/" + yadda.bywhom)
-                        if yadda.image
-                            img(src="/getimage/" + yadda.id) 
-                        span.time-right Posted by #{yadda.bywhom}
-                        span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
-                 
-                    //- Replies
-                each reply in yaddareplies
-                    if (reply.replyTo == yadda.id)
-                        div.replyBesked
-                            p.content #{reply.content}
-                                img.delimg(src="/users/getimage/" + reply.bywhom)
-                                if reply.image
-                                    img(src="/getimage/" + reply.id) 
-                                span.time-right Posted by #{reply.bywhom}
-                                span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                
-                a(href="/replyto/" + yadda.id) 
-                    button.follow-reply Reply
-            hr
+        
+        div.bloksTilYadda
+            //- Yadda posts og replies
+            each yadda in yaddas
+                if (yadda.replyTo === null)
+                    //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
+                    div.feedBesked
+                        p.content #{yadda.content}
+                            img.delimg(src="/users/getimage/" + yadda.bywhom)
+                            if yadda.image
+                                img(src="/getimage/" + yadda.id) 
+                            span.time-right Posted by #{yadda.bywhom}
+                            span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
+                    
+                        //- Replies
+                    each reply in yaddareplies
+                        if (reply.replyTo == yadda.id)
+                            div.replyBesked
+                                p.content #{reply.content}
+                                    img.delimg(src="/users/getimage/" + reply.bywhom)
+                                    if reply.image
+                                        img(src="/getimage/" + reply.id) 
+                                    span.time-right Posted by #{reply.bywhom}
+                                    span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
+                    
+                    a(href="/replyto/" + yadda.id) 
+                        button.follow-reply Reply
+                hr
         aside.containt
                 input(type="text" placeholder="search")
                 each followee in follows
