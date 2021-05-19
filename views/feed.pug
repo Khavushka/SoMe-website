@@ -19,8 +19,8 @@ block content
                 div.feedBesked
                     p.content #{yadda.content}
                         img.delimg(src="/users/getimage/" + yadda.bywhom)
-                        //- if (yadda.image.test(new RegExp("/^.{1,}/g"))) 
-                        //-     img(src="/getimage/" + yadda.id) 
+                        if yadda.image
+                            img(src="/getimage/" + yadda.id) 
                         span.time-right Posted by #{yadda.bywhom}
                         span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                  
@@ -30,8 +30,8 @@ block content
                         div.replyBesked
                             p.content #{reply.content}
                                 img.delimg(src="/users/getimage/" + reply.bywhom)
-                                //- if (yadda.image === !null)
-                                //-     img(src="/getimage/" + reply.id) 
+                                if reply.image
+                                    img(src="/getimage/" + reply.id) 
                                 span.time-right Posted by #{reply.bywhom}
                                 span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                 
