@@ -2,20 +2,21 @@ extends layout
 
 block content
         h1 #{title}
-        footer
-        if user  
-            form(class="form" method='post' action='/yaddaForm/' + yadda)          
+        footer  
                 div.input-area
-                    div.input-wrapper
-                        input(type="text")
-                        i(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
-                    button(type="button" class="send-btn") Submit 
-                    if errors != undefined && errors.length != 0
-                        each error in errors
-                            div(class="error-msg" role='alert' id='a1') #{error.msg}
-                    if success_msg != ''
-                        div(role='alert' id='a2') #{success_msg}
-                    if error_msg != ''
-                        div(class="error-msg" role='alert' id='a3') #{error_msg}
-                    if error != ''
-                        div(class="error-msg" role='alert' id='a4') #{error}
+                    form(class="form" method='post' action='/yaddaForm/' + yadda)  
+                        if user     
+                            div.input-wrapper
+                                input(type="text" name="content")
+                                input(class="fa fa-paperclip" type="file" name='image' placeholder="optional")
+                            button(type="submit" class="send-btn") Submit 
+
+                            if errors != undefined && errors.length != 0
+                                each error in errors
+                                    div(class="error-msg" role='alert' id='a1') #{error.msg}
+                            if success_msg != ''
+                                div(role='alert' id='a2') #{success_msg}
+                            if error_msg != ''
+                                div(class="error-msg" role='alert' id='a3') #{error_msg}
+                            if error != ''
+                                div(class="error-msg" role='alert' id='a4') #{error}

@@ -19,7 +19,8 @@ block content
                 div.feedBesked
                     p.content #{yadda.content}
                         img.delimg(src="/users/getimage/" + yadda.bywhom)
-                        img(src="/getimage/" + yadda.id) 
+                        //- if (yadda.image.test(new RegExp("/^.{1,}/g"))) 
+                        //-     img(src="/getimage/" + yadda.id) 
                         span.time-right Posted by #{yadda.bywhom}
                         span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                  
@@ -29,22 +30,22 @@ block content
                         div.replyBesked
                             p.content #{reply.content}
                                 img.delimg(src="/users/getimage/" + reply.bywhom)
-                                img(src="/getimage/" + reply.id) 
+                                //- if (yadda.image === !null)
+                                //-     img(src="/getimage/" + reply.id) 
                                 span.time-right Posted by #{reply.bywhom}
-                                span(class="time-right") #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
+                                span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                 
                 a(href="/replyto/" + yadda.id) 
                     button.follow-reply Reply
             hr
         aside.containt
-            header
                 input(type="text" placeholder="search")
                 each followee in follows
                     div.contact
                         div.card
                             div.firstinfo
                                 img(src="/users/getimage/" + followee.follows)
-                                h1.nickname #{followee.follows}
+                                p.nickname #{followee.follows}
                                 p
                                     a(href="/yaddaForm/" + followee.follows) 
                                         button.follow Send Yadda

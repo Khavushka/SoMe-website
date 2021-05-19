@@ -16,6 +16,7 @@ block content
                         p #{followee.follows}
                         a(href="/users/unfollow/" + followee.follows) 
                             button.follow Unfollow
+                        hr
             if !showsfollows
                 h1 #{title}
                 div
@@ -25,6 +26,6 @@ block content
                     each user in users
                         img(src="/users/getimage/" + user.uid)
                         p #{user.name}
-                        div
                             a(href="/users/follow/" + user.uid) 
                                 button.follow Follow
+                            hr
