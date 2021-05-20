@@ -7,53 +7,60 @@ const fs = require('fs');
 const formidable = require('formidable');
 
 // Til Hashtag
-// const hashTag = function(yadda){
-//     const regex = /(\#)(\w+)/g;
-//     let subst = `<a href='/her skal være link/'>$1$2</a>`;
-//     let txt = yadda.replace(regex, subst);
-// };
+const hashTag = function(yaddas){
+    const regex = /(\#)(\w+)/g;
+    let subst = `<a href='/feed/$2'>$1$2</a>`; // $1 $2 = hashtag symbol
+    let txt = yaddas.replace(regex, subst);
+    return txt;
+};
 
 // const userId = function(yadda){
 //     const reqex = /(@)(\w+)/g;
-//     let subst = `<a href='link til'>$1$2</a>`;
+//     let subst = `<a href='/users/lookup/$2'>$1$2</a>`;
 //     let txt = yadda.replace(reqex, subst);
 //     return txt;
 // }
 
-// const linkiHashes = function(yaddas){
-//     for (let i = 0; i < yaddas.length; i++) {
-//         let repltxt = hashTag(yaddas[i].content);
-//         yaddas[i].content = repltxt;
-//     }
-// }
+const linkifyHashes = function(yaddas){
+    for (let i = 0; i < yaddas.length; i++) {
+        let repltxt = hashTag(yaddas[i].content);
+        yaddas[i].content = repltxt;
+    }
+}
 
-// const linkifyHandles = function(yaddas){
+// const linkifyHandles = function(yaddas){ // niels kalder brugernavn handles
 //     for(let i = 0; i < yaddas.length; i++) {
 //         let repltxt = userId(yaddas[i].content);
 //         yaddas[i].content = repltxt;
 //     }
 // }
 
-// exports.getWithHashtag = async function (req, res){
-//     let query = {};
-//     let subtitle = ' ';
-//     if(req.params.hashtag){
-//         let hashtag = '#' + req.params.hashtag;
-//         let regex = new RegExp(hashtag, "i");
-//         query = {
-//             content: reqex
-//         };
-//         subtitle = 'Hashtag:' + hashtag;
-//     }
-//     const yaddas = await yaddaSchema.find(query, {sort: {created: -1}});
-//     linkifyHashes(yaddas);
-//     linkifyHandles(yaddas);
-//     res.render('feed', {
-//         user: req.user,
-//         subtitle: subtitle,
-//         yaddas
-//     })
-// }
+exports.getWithHashtag = async function (req, res){
+    let query = {}; //til database
+    let subtitle = ' ';
+    let yaddareplies = '';
+    if(req.params.hashtag){
+        let hashtag = '#' + req.params.hashtag;
+        let regex = new RegExp(hashtag, "i");
+        query = { //når man trykker på en hashtag
+            content: regex
+        };
+        subtitle = 'Hashtag: ' + hashtag;
+    }
+    const yaddas = await yaddaSchema.find(query);
+    linkifyHashes(yaddas);
+    return yaddas;
+    // linkifyHandles(yaddas);
+    // res.render('feed', {
+    //     user: req.user,
+    //     subtitle: subtitle,
+    //     title: 'The feed',
+    //     users,
+    //     follows,
+    //     yaddas,
+    //     yaddareplies
+    // });
+}
 
 
 // Sender brugeren videre til en post yadda side
@@ -67,6 +74,14 @@ exports.gotoYaddaform = async function(req, res) {
         return friend;
     }    
 }
+
+// få yaddaer
+exports.getYaddas = async function(req, res) {
+    let yaddas = await yaddaSchema.find({replyTo: {$eq: null}});
+    return yaddas;
+}
+
+// få yaddaer med bestemt hashtag
 exports.getYaddas = async function(req, res) {
     let yaddas = await yaddaSchema.find({replyTo: {$eq: null}});
     return yaddas;
@@ -87,10 +102,11 @@ exports.postYadda = async function(req, res) {
         content,
         replyTo: yaddareply
     });
-    yadda.image.data = await fs.readFileSync(files.image.path) // tjek om await er nødvendigt //read uploaded image
-    yadda.image.contentType = files.image.type;
+    if (yadda && yadda.image) {
+        yadda.image.data = await fs.readFileSync(files.image.path) // read uploaded image
+        yadda.image.contentType = files.image.type;
     //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
-
+    }
         yadda.save(function (err) {
             if (err) {
                 req.flash(
@@ -110,12 +126,16 @@ exports.postYadda = async function(req, res) {
 }
 
 //dzsh@iba.dk
-exports.lookupYaddaImage = async function (req, res) {
+exports.lookupYaddaImage = async function (req, res, next) {
     let query = req.params.id;
     console.log(query);
     let yadda = await yaddaSchema.findOne({_id: query});
-    res.contentType(yadda.image.contentType);
-    res.send(yadda.image.data);
+    if (yadda && yadda.image && yadda.image.data.length > 0) {
+        res.contentType(yadda.image.contentType);
+        res.send(yadda.image.data);
+    } else {
+        return;
+    }
 };
 
 

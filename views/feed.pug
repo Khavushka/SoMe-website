@@ -18,10 +18,10 @@ block content
                 if (yadda.replyTo === null)
                     //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                     div.feedBesked
-                        p.content #{yadda.content}
-                            img.delimg(src="/users/getimage/" + yadda.bywhom)
+                        div.content #{yadda.content}
                             if yadda.image
-                                img(src="/getimage/" + yadda.id) 
+                                img.delimg(src="/getimage/" + yadda.id)
+                            img.imgAvatar(src="/users/getimage/" + yadda.bywhom) 
                             span.time-right Posted by #{yadda.bywhom}
                             span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                     
@@ -30,9 +30,9 @@ block content
                         if (reply.replyTo == yadda.id)
                             div.replyBesked
                                 p.content #{reply.content}
-                                    img.delimg(src="/users/getimage/" + reply.bywhom)
                                     if reply.image
-                                        img(src="/getimage/" + reply.id) 
+                                        img.delimg(src="/getimage/" + reply.id)
+                                    img.imgAvatar(src="/users/getimage/" + reply.bywhom) 
                                     span.time-right Posted by #{reply.bywhom}
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                     
@@ -45,7 +45,7 @@ block content
                     div.contact
                         div.card
                             div.firstinfo
-                                img(src="/users/getimage/" + followee.follows)
+                                img.imgAvatar(src="/users/getimage/" + followee.follows)
                                 p.nickname #{followee.follows}
                                 p
                                     a(href="/yaddaForm/" + followee.follows) 

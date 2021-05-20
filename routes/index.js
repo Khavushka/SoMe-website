@@ -5,6 +5,9 @@ const auth = require("../controllers/authController.js");
 const yaddaController = require('../controllers/yaddaController.js');
 const userController = require('../controllers/userController.js');
 const { ensureAuthenticated } = require('../config/auth');
+const linkify = require('linkifyjs');
+require('linkifyjs/plugins/hashtag'); // optional
+const linkifyHtml = require('linkifyjs/html');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,7 +23,7 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
     let uid = req.user.uid;
     let users = await userController.getUsers(req, res);
     let follows = await userController.getFollows(req, res);
-    let yaddas = await yaddaController.getYaddas(req, res);
+    let yaddas = await yaddaController.getWithHashtag(req, res);
     let yaddareplies = await yaddaController.getReplies(req, yaddas);
     console.log(yaddas);
     res.render('feed', {
@@ -31,6 +34,24 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
         yaddas,
         yaddareplies
     });    
+});
+
+// feed med hashtags
+router.get('/feed/:hashtag', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
+    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let uid = req.user.uid;
+    let hashtag = '#' + req.params.hashtag;
+    let users = await userController.getUsers(req, res);
+    let follows = await userController.getFollows(req, res);
+    let yaddas = await yaddaController.getWithHashtag(req, res);
+    res.render('feed', {
+        title: 'The feed',
+        user: user,
+        users,
+        follows,
+        yaddas,
+        yaddareplies
+    });
 });
 
 // get yaddaform - hvor man som bruger indtaster selv i formular, hvem der skal sendes til
