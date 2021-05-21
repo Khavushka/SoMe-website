@@ -38,6 +38,10 @@ block content
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                                     a(href="/replyto/" + reply.id) 
                                         button.follow-reply Reply
+                            each replyreply in yaddas
+                                if (replyreply.replyTo == reply.id)
+                                    a(href="/readmore/" + replyreply.id) 
+                                        button.follow-reply Read more Replies
                     hr
         //- aside.containt
         //-         input(type="text" placeholder="search")
