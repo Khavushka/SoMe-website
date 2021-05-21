@@ -15,38 +15,38 @@ block content
         div.bloksTilYadda
             //- Yadda posts og replies
             each yadda in yaddas
+                //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 if (yadda.replyTo === null)
-                    //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                     div.feedBesked
-                        p.content #{yadda.content}
-                            img.delimg(src="/users/getimage/" + yadda.bywhom)
-                            if yadda.image
-                                img(src="/getimage/" + yadda.id) 
+                        div.content #{yadda.content}
+                            if (yadda.image.data.length > 0)
+                                img.delimg(src="/getimage/" + yadda.id)
+                            img.imgAvatar(src="/users/getimage/" + yadda.bywhom) 
                             span.time-right Posted by #{yadda.bywhom}
                             span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
-                    
-                        //- Replies
-                    each reply in yaddareplies
+                            a(href="/replyto/" + yadda.id) 
+                                button.follow-reply ReplytoOrg
+                                //- Replies
+                    each reply in yaddas
                         if (reply.replyTo == yadda.id)
                             div.replyBesked
                                 p.content #{reply.content}
-                                    img.delimg(src="/users/getimage/" + reply.bywhom)
-                                    if reply.image
-                                        img(src="/getimage/" + reply.id) 
+                                    if (reply.image.data.length > 0)
+                                        img.delimg(src="/getimage/" + reply.id)
+                                    img.imgAvatar(src="/users/getimage/" + reply.bywhom) 
                                     span.time-right Posted by #{reply.bywhom}
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                    
-                    a(href="/replyto/" + yadda.id) 
-                        button.follow-reply Reply
-                hr
-        aside.containt
-                input(type="text" placeholder="search")
-                each followee in follows
-                    div.contact
-                        div.card
-                            div.firstinfo
-                                img(src="/users/getimage/" + followee.follows)
-                                p.nickname #{followee.follows}
-                                p
-                                    a(href="/yaddaForm/" + followee.follows) 
-                                        button.follow Send Yadda
+                                    a(href="/replyto/" + reply.id) 
+                                        button.follow-reply Reply
+                    hr
+        //- aside.containt
+        //-         input(type="text" placeholder="search")
+        //-         each followee in follows
+        //-             div.contact
+        //-                 div.card
+        //-                     div.firstinfo
+        //-                         img.imgAvatar(src="/users/getimage/" + followee.follows)
+        //-                         p.nickname #{followee.follows}
+        //-                         p
+        //-                             a(href="/yaddaForm/" + followee.follows) 
+        //-                                 button.follow Send Yadda

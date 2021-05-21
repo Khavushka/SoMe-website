@@ -83,6 +83,25 @@ router.get('/showsall', ensureAuthenticated, async function(req, res) {
 
 //router til image
 
+// router til lookup user
+router.get('/lookup/:userId', ensureAuthenticated, async function(req, res) {
+    let userid = req.params.userId;
+    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let uid = req.user.uid;
+    let showsfollows = false;
+    let follows = await userController.getFollows(req, res);
+    let users = await userController.getUsers(req, res);
+    //der skal være en form for krydsreference mellem funktionerne sådan at vi ikke 
+    //har brugere med i users som vi allerede har i follows
+    res.render('yaddaPeople', {
+        title: 'Some yaddapeople you might know',
+        showsfollows,
+        user: user, 
+        users,
+        follows
+    });
+});
+
 
 module.exports = router;
 

@@ -1,7 +1,8 @@
 //fra Example A.280. Authentication Config, config/auth.js
 
+//Sikrer at alle routes til interne get/post requests er med en bruger som er logget ind
 module.exports = {
-    ensureAuthenticated: function(req, res, next) { //den tjekker om du er logget ind
+    ensureAuthenticated: function(req, res, next) { //Middleware - den tjekker og sikrer at du er logget ind
         if (req.isAuthenticated()) {
             return next();
         }

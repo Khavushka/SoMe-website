@@ -12,11 +12,13 @@ const yaddaSchema = mongoose.Schema({
         type: String,         
         required: true, 
         minlength: 1,
-        maxlength: 200
+        maxlength: 167
     },
     replyTo: {
-        type: Schema.Types.ObjectId, ref: "Yadda", default: null},
-     
+        type: Schema.Types.ObjectId, 
+        ref: "Yadda", 
+        default: null
+    },
     image: {                             // for image
     data: Buffer,                       // the image itself
     contentType: String                // the mimetype
