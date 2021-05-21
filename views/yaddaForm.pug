@@ -6,7 +6,7 @@ block content
                 div.inputarea
                     form(class="form" method='post' enctype="multipart/form-data" action='/yaddaForm/' + yadda)      
                             div.inputwrapper
-                                input(type="text" name="content")
+                                input(type="text" name="content" minlength="1" maxlength="167")
                                 input(class="fa fa-paperclip" type="file" name="image" placeholder="optional")
                                 button(type="submit" class="sendbtn") Submit 
 

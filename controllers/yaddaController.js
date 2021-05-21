@@ -9,17 +9,10 @@ const formidable = require('formidable');
 // Til Hashtag
 const hashTag = function(yaddas){
     const regex = /(\#)(\w+)/g;
-    let subst = `<a href='/feed/$2'>$1$2</a>`; // $1 $2 = hashtag symbol
+    let subst = "<a href='/feed/$2'> $1$2 </a>"; // $1 $2 = hashtag symbol
     let txt = yaddas.replace(regex, subst);
     return txt;
 };
-
-// const userId = function(yadda){
-//     const reqex = /(@)(\w+)/g;
-//     let subst = `<a href='/users/lookup/$2'>$1$2</a>`;
-//     let txt = yadda.replace(reqex, subst);
-//     return txt;
-// }
 
 const linkifyHashes = function(yaddas){
     for (let i = 0; i < yaddas.length; i++) {
@@ -28,12 +21,20 @@ const linkifyHashes = function(yaddas){
     }
 }
 
-// const linkifyHandles = function(yaddas){ // niels kalder brugernavn handles
-//     for(let i = 0; i < yaddas.length; i++) {
-//         let repltxt = userId(yaddas[i].content);
-//         yaddas[i].content = repltxt;
-//     }
-// }
+// Links Til brugernavne
+const userId = function(yaddas){
+    const regex = /(@)(\w+)/g;
+    let subst = `<a href='/users/lookup/$2'>$1$2</a>`;
+    let txt = yaddas.replace(regex, subst);
+    return txt;
+}
+
+const linkifyHandles = function(yaddas){            // niels kalder brugernavn handles
+    for(let i = 0; i < yaddas.length; i++) {
+        let repltxt1 = userId(yaddas[i].bywhom);
+        yaddas[i].bywhom = repltxt1;
+    }
+}
 
 exports.getWithHashtag = async function (req, res){
     let query = {}; //til database
@@ -47,10 +48,13 @@ exports.getWithHashtag = async function (req, res){
         };
         subtitle = 'Hashtag: ' + hashtag;
     }
-    const yaddas = await yaddaSchema.find(query);
+    const yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
+    console.log(yaddas);
     linkifyHashes(yaddas);
+    console.log(yaddas);
+    linkifyHandles(yaddas);
     return yaddas;
-    // linkifyHandles(yaddas);
+    
     // res.render('feed', {
     //     user: req.user,
     //     subtitle: subtitle,
@@ -145,11 +149,13 @@ exports.getReplies = async function(req, yaddas){
     for (item in yaddas) {         
     yaddaids.push(yaddas[item].id); 
     }
-    let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}});
+    let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}}).sort({timestamp: -1});
 
     return yaddareplies;   
     
 }
+
+
 
 
 /*yaddas.forEach(function(item.id) {

@@ -5,9 +5,6 @@ const auth = require("../controllers/authController.js");
 const yaddaController = require('../controllers/yaddaController.js');
 const userController = require('../controllers/userController.js');
 const { ensureAuthenticated } = require('../config/auth');
-const linkify = require('linkifyjs');
-require('linkifyjs/plugins/hashtag'); // optional
-const linkifyHtml = require('linkifyjs/html');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

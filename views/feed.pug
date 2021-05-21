@@ -14,39 +14,40 @@ block content
         
         div.bloksTilYadda
             //- Yadda posts og replies
-            each yadda in yaddas
+            each yadda in yaddas || yaddas.replyTo ===  null
                 if (yadda.replyTo === null)
                     //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                     div.feedBesked
                         div.content #{yadda.content}
-                            if yadda.image
+                            if (yadda.image.data.length > 0)
                                 img.delimg(src="/getimage/" + yadda.id)
                             img.imgAvatar(src="/users/getimage/" + yadda.bywhom) 
                             span.time-right Posted by #{yadda.bywhom}
                             span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                     
                         //- Replies
-                    each reply in yaddareplies
+                each reply in yaddas
                         if (reply.replyTo == yadda.id)
                             div.replyBesked
                                 p.content #{reply.content}
-                                    if reply.image
+                                    if (reply.image.data.length > 0)
                                         img.delimg(src="/getimage/" + reply.id)
                                     img.imgAvatar(src="/users/getimage/" + reply.bywhom) 
                                     span.time-right Posted by #{reply.bywhom}
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                    
+                            a(href="/replyto/" + reply.id) 
+                                button.follow-reply Reply
                     a(href="/replyto/" + yadda.id) 
-                        button.follow-reply Reply
-                hr
-        aside.containt
-                input(type="text" placeholder="search")
-                each followee in follows
-                    div.contact
-                        div.card
-                            div.firstinfo
-                                img.imgAvatar(src="/users/getimage/" + followee.follows)
-                                p.nickname #{followee.follows}
-                                p
-                                    a(href="/yaddaForm/" + followee.follows) 
-                                        button.follow Send Yadda
+                        button.follow-reply ReplytoOrg
+                    hr
+        //- aside.containt
+        //-         input(type="text" placeholder="search")
+        //-         each followee in follows
+        //-             div.contact
+        //-                 div.card
+        //-                     div.firstinfo
+        //-                         img.imgAvatar(src="/users/getimage/" + followee.follows)
+        //-                         p.nickname #{followee.follows}
+        //-                         p
+        //-                             a(href="/yaddaForm/" + followee.follows) 
+        //-                                 button.follow Send Yadda
