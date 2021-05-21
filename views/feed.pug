@@ -24,7 +24,8 @@ block content
                             img.imgAvatar(src="/users/getimage/" + yadda.bywhom) 
                             span.time-right Posted by #{yadda.bywhom}
                             span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
-                    
+                            a(href="/replyto/" + yadda.id) 
+                                button.follow-reply ReplytoOrg
                         //- Replies
                 each reply in yaddas
                         if (reply.replyTo == yadda.id)
@@ -37,9 +38,7 @@ block content
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                             a(href="/replyto/" + reply.id) 
                                 button.follow-reply Reply
-                    a(href="/replyto/" + yadda.id) 
-                        button.follow-reply ReplytoOrg
-                    hr
+                hr
         //- aside.containt
         //-         input(type="text" placeholder="search")
         //-         each followee in follows
