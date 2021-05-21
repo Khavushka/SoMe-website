@@ -12,7 +12,7 @@ block content
                 each followee in follows
                     div.uid
 
-                        img(src="/users/getimage/" + followee.follows) 
+                        img.imgAvatar(src="/users/getimage/" + followee.follows) 
                         p #{followee.follows}
                         a(href="/users/unfollow/" + followee.follows) 
                             button.follow Unfollow
@@ -24,7 +24,7 @@ block content
                         button.follow Show your follows
                 div
                     each user in users
-                        img(src="/users/getimage/" + user.uid)
+                        img.imgAvatar(src="/users/getimage/" + user.uid)
                         p #{user.name}
                             a(href="/users/follow/" + user.uid) 
                                 button.follow Follow
