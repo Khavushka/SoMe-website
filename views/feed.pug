@@ -14,9 +14,9 @@ block content
         
         div.bloksTilYadda
             //- Yadda posts og replies
-            each yadda in yaddas || yaddas.replyTo ===  null
+            each yadda in yaddas
+                //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 if (yadda.replyTo === null)
-                    //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                     div.feedBesked
                         div.content #{yadda.content}
                             if (yadda.image.data.length > 0)
@@ -26,8 +26,8 @@ block content
                             span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                             a(href="/replyto/" + yadda.id) 
                                 button.follow-reply ReplytoOrg
-                        //- Replies
-                each reply in yaddas
+                                //- Replies
+                    each reply in yaddas
                         if (reply.replyTo == yadda.id)
                             div.replyBesked
                                 p.content #{reply.content}
@@ -36,9 +36,9 @@ block content
                                     img.imgAvatar(src="/users/getimage/" + reply.bywhom) 
                                     span.time-right Posted by #{reply.bywhom}
                                     span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                            a(href="/replyto/" + reply.id) 
-                                button.follow-reply Reply
-                hr
+                                    a(href="/replyto/" + reply.id) 
+                                        button.follow-reply Reply
+                    hr
         //- aside.containt
         //-         input(type="text" placeholder="search")
         //-         each followee in follows

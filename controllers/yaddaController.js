@@ -149,7 +149,7 @@ exports.getReplies = async function(req, yaddas){
     for (item in yaddas) {         
     yaddaids.push(yaddas[item].id); 
     }
-    let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}}).sort({timestamp: -1});
+    let yaddareplies = await yaddaSchema.find({replyTo:{$in: yaddaids}}).sort({timestamp: 1}); //sortere opslag 
 
     return yaddareplies;   
     
