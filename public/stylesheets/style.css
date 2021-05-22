@@ -421,52 +421,28 @@ nickname {
 }
 
 /* -----------Til Send Yadda */
-.inputarea {
-  background: #e4eaee;
-  padding: 6px;
-  overflow: hidden;
-  position: static;
-  border-top: 1px solid #cfdae1;
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-.inputarea .inputwrapper {
-  background: #fff;
-  border: 1px solid #cfdae1;
-  border-radius: 5px;
-  overflow: hidden;
-  float: right;
+
+.kontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.inputarea .inputwrapper input {
-  height: 30px;
-  line-height: 30px;
-  border: 0;
-  margin: 0;
-  padding: 0 10px;
-  outline: none;
-  color: #5d7185;
-  min-width: 271px;
+
+
+#text-area {
+    font-family: sans-serif, monospace;
+    font-size: 20px;
+    min-height: 70px;
+    min-width: 500px;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #c1c1c1;
 }
-.inputarea .inputwrapper i {
-  font-size: 18px;
-  color: #a0b4c0;
-  margin-right: 10px;
-  margin-top: 8px;
-  cursor: pointer;
-}
-.sendbtn {
-  background: #a0b4c0;
-  border: none;
-  letter-spacing: 1px;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 4px;
-  float: right;
-  height: 36px;
-  line-height: 30px;
-  cursor: pointer;
-  font-family: "Open Sans", Arial, sans-serif;
-  outline: none;
-}
-/* 
-footer {
-	margin-top: 200px;
-} */
