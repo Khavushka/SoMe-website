@@ -12,45 +12,45 @@ block content
         if error != ''
             div(class="error-msg" role='alert' id='a4') #{error}
         
-        div.bloksTilYadda
+        section.comments-section
             //- Yadda posts og replies
             each yadda in yaddas
                 //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 if (yadda.replyTo === null)
-                    div.feedBesked
-                        div.content #{yadda.content}
-                            if (yadda.image.data.length > 0)
-                                img.delimg(src="/getimage/" + yadda.id)
-                            img.imgAvatar(src="/users/getimage/" + yadda.bywhom) 
-                            span.time-right Posted by #{yadda.bywhom}
-                            span.time-right #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
-                            a(href="/replyto/" + yadda.id) 
-                                button.follow-reply ReplytoOrg
-                                //- Replies
-                    each reply in yaddas
-                        if (reply.replyTo == yadda.id)
-                            div.replyBesked
-                                p.content #{reply.content}
-                                    if (reply.image.data.length > 0)
-                                        img.delimg(src="/getimage/" + reply.id)
-                                    img.imgAvatar(src="/users/getimage/" + reply.bywhom) 
-                                    span.time-right Posted by #{reply.bywhom}
-                                    span.time-right #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
-                                    a(href="/replyto/" + reply.id) 
-                                        button.follow-reply Reply
-                            each replyreply in yaddas
-                                if (replyreply.replyTo == reply.id)
-                                    a(href="/readmore/" + replyreply.id) 
-                                        button.follow-reply Read more Replies
-                    hr
-        //- aside.containt
-        //-         input(type="text" placeholder="search")
-        //-         each followee in follows
-        //-             div.contact
-        //-                 div.card
-        //-                     div.firstinfo
-        //-                         img.imgAvatar(src="/users/getimage/" + followee.follows)
-        //-                         p.nickname #{followee.follows}
-        //-                         p
-        //-                             a(href="/yaddaForm/" + followee.follows) 
-        //-                                 button.follow Send Yadda
+                        .comment-initial
+                            .comment-avatar-container 
+                                img.comment-avatar(src="/users/getimage/" + yadda.bywhom) 
+                            p.comment-text #{yadda.content}
+                                //- if (yadda.image.data.length > 0)
+                                //-     img.delimg(src="/getimage/" + yadda.id)
+                                p.comment-time-stamp Posted by #{yadda.bywhom} #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
+                                    a(href="/replyto/" + yadda.id) 
+                                    button.follow-reply ReplytoOrg
+                                    //- Replies
+                        each reply in yaddas
+                            if (reply.replyTo == yadda.id)
+                                .comment-response
+                                    .comment-avatar-container
+                                        img.comment-avatar(src="/users/getimage/" + reply.bywhom)
+                                    p.comment-text #{reply.content} 
+                                    //- if (reply.image.data.length > 0)
+                                    //-     img.delimg(src="/getimage/" + reply.id)
+                                    p.comment-time-stamp Posted by #{reply.bywhom} #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
+                                        a(href="/replyto/" + reply.id) 
+                                            button.follow-reply Reply
+                                    each replyreply in yaddas
+                                        if (replyreply.replyTo == reply.id)
+                                            a(href="/readmore/" + replyreply.id) 
+                                                button.follow-reply Read more Replies
+
+        aside.containt
+                input(type="text" placeholder="search")
+                each followee in follows
+                    div.contact
+                        div.card
+                            div.firstinfo
+                                img.imgAvatar(src="/users/getimage/" + followee.follows)
+                                p.nickname #{followee.follows}
+                                p
+                                    a(href="/yaddaForm/" + followee.follows) 
+                                        button.follow Send Yadda
