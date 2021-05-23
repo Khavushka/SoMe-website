@@ -11,7 +11,7 @@ block content
             div(class="error-msg" role='alert' id='a3') #{error_msg}
         if error != ''
             div(class="error-msg" role='alert' id='a4') #{error}
-        
+    
         section.comments-section
             //- Yadda posts og replies
             each yadda in yaddas
@@ -21,11 +21,11 @@ block content
                             .comment-avatar-container 
                                 img.comment-avatar(src="/users/getimage/" + yadda.bywhom) 
                             p.comment-text #{yadda.content}
-                                //- if (yadda.image.data.length > 0)
-                                //-     img.delimg(src="/getimage/" + yadda.id)
+                                if (yadda.image.data.length > 0)
+                                    img.delimg(src="/getimage/" + yadda.id)
                                 p.comment-time-stamp Posted by #{yadda.bywhom} #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
                                     a(href="/replyto/" + yadda.id) 
-                                    button.follow-reply ReplytoOrg
+                                    button(class="fa fa-reply")
                                     //- Replies
                         each reply in yaddas
                             if (reply.replyTo == yadda.id)
@@ -33,24 +33,22 @@ block content
                                     .comment-avatar-container
                                         img.comment-avatar(src="/users/getimage/" + reply.bywhom)
                                     p.comment-text #{reply.content} 
-                                    //- if (reply.image.data.length > 0)
-                                    //-     img.delimg(src="/getimage/" + reply.id)
+                                    if (reply.image.data.length > 0)
+                                        img.delimg(src="/getimage/" + reply.id)
                                     p.comment-time-stamp Posted by #{reply.bywhom} #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                                         a(href="/replyto/" + reply.id) 
-                                            button.follow-reply Reply
+                                            button(class="fa fa-reply")
                                     each replyreply in yaddas
                                         if (replyreply.replyTo == reply.id)
                                             a(href="/readmore/" + replyreply.id) 
-                                                button.follow-reply Read more Replies
+                                                button(class="fa fa-reply")
 
-        aside.containt
-                input(type="text" placeholder="search")
-                each followee in follows
-                    div.contact
-                        div.card
-                            div.firstinfo
-                                img.imgAvatar(src="/users/getimage/" + followee.follows)
-                                p.nickname #{followee.follows}
-                                p
-                                    a(href="/yaddaForm/" + followee.follows) 
-                                        button.follow Send Yadda
+            aside.containt
+                    each followee in follows
+                        div#chatbox
+                                    div.friend                            
+                                        img(src="/users/getimage/" + followee.follows)
+                                        p
+                                            strong #{followee.follows}
+                                            a(href="/yaddaForm/" + followee.follows) 
+                                                button(class="fa fa-envelope")
