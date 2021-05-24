@@ -6,7 +6,7 @@ const yaddaSchema = require('../models/yaddaSchema')
 const fs = require('fs');
 const formidable = require('formidable');
 
-/*
+
 // Til Hashtag
 const hashTag = function(yaddas){
     const regex = /(\#)(\w+)/g;
@@ -36,7 +36,7 @@ const linkifyHandles = function(yaddas){            // niels kalder brugernavn h
         yaddas[i].bywhom = repltxt1;
     }
 }
-*/
+
 exports.getWithHashtag = async function (req, res){
     let query = {}; //til database
     let subtitle = ' ';
@@ -53,13 +53,14 @@ exports.getWithHashtag = async function (req, res){
     if(req.params.replies){
         let replies = req.params.replies;
         console.log(replies);
+        let replyreply = await yaddaSchema.find({'replyTo': replies});
         query = {
-        _id: replies
+        $or: [{'_id': replies}, {'replyTo': replies}, {'replyTo': replyreply}] // Her bruger vi $or til at vælge den kan have flere conditions og altså ikke skal have de to conditions opfyldt. Den tager det ene eller det andet
         };
     }
     let yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
-    //linkifyHashes(yaddas);
-    //linkifyHandles(yaddas);
+    linkifyHashes(yaddas);
+    linkifyHandles(yaddas);
     console.log(yaddas);
     return yaddas;
 }

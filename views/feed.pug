@@ -16,7 +16,7 @@ block content
             //- Yadda posts og replies
             each yadda in yaddas
                 //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
-                if (yadda.replyTo === null || replies)
+                if (yadda.replyTo === null || yadda.id == replies)
                         .comment-initial
                             .comment-avatar-container 
                                 img.comment-avatar(src="/users/getimage/" + yadda.bywhom) 
@@ -40,7 +40,7 @@ block content
                                             button(class="fa fa-reply")
                                     each replyreply in yaddas
                                         if (replyreply.replyTo == reply.id)
-                                            a(href="/readmore/" + replyreply.id) 
+                                            a(href="/readmore/" + reply.id) 
                                                 button(class="") Read more
 
             aside.containt
@@ -52,5 +52,5 @@ block content
                                             strong #{followee.follows}
                                             a(href="/yaddaForm/" + followee.follows) 
                                                 button(class="fa fa-envelope")
-                                    .annoncer 
-                                        p Annoncer
+                                    div
+                                        p.annoncer  Annoncer
