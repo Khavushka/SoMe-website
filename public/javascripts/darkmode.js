@@ -11,3 +11,4 @@ const toggleTheme = (theme) => {
     htmlEl.dataset.theme = theme;
     localStorage.setItem('theme', theme);
 }
+

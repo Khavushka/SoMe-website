@@ -22,14 +22,12 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
     let follows = await userController.getFollows(req, res);
     let yaddas = await yaddaController.getWithHashtag(req, res);
     let yaddareplies = await yaddaController.getReplies(req, yaddas);
-    console.log(yaddas);
     res.render('feed', {
         title: 'The feed',
         user: user,
         users,
         follows,
-        yaddas,
-        yaddareplies
+        yaddas
     });    
 });
 
@@ -46,8 +44,25 @@ router.get('/feed/:hashtag', ensureAuthenticated, async function(req, res, next)
         user: user,
         users,
         follows,
-        yaddas,
-        yaddareplies
+        yaddas
+    });
+});
+
+// til at vise mere yaddas
+router.get('/readmore/:replies', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
+    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let uid = req.user.uid;
+    let replies = req.params.replies;
+    let users = await userController.getUsers(req, res);
+    let follows = await userController.getFollows(req, res);
+    let yaddas = await yaddaController.getWithHashtag(req, res);
+    res.render('feed', {
+        title: 'The feed',
+        user: user,
+        users,
+        follows,
+        yaddas, 
+        replies
     });
 });
 

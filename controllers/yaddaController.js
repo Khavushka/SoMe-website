@@ -48,22 +48,19 @@ exports.getWithHashtag = async function (req, res){
         };
         subtitle = 'Hashtag: ' + hashtag;
     }
-    const yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
-    console.log(yaddas);
+
+    if(req.params.replies){
+        let replies = req.params.replies;
+        console.log(replies);
+        query = {
+        _id: replies
+        };
+    }
+    let yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
     linkifyHashes(yaddas);
-    console.log(yaddas);
     linkifyHandles(yaddas);
+    console.log(yaddas);
     return yaddas;
-    
-    // res.render('feed', {
-    //     user: req.user,
-    //     subtitle: subtitle,
-    //     title: 'The feed',
-    //     users,
-    //     follows,
-    //     yaddas,
-    //     yaddareplies
-    // });
 }
 
 
@@ -132,7 +129,6 @@ exports.postYadda = async function(req, res) {
 //dzsh@iba.dk
 exports.lookupYaddaImage = async function (req, res, next) {
     let query = req.params.id;
-    console.log(query);
     let yadda = await yaddaSchema.findOne({_id: query});
     if (yadda && yadda.image && yadda.image.data.length > 0) {
         res.contentType(yadda.image.contentType);
