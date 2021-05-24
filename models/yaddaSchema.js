@@ -14,11 +14,6 @@ const yaddaSchema = mongoose.Schema({
         minlength: 1,
         maxlength: 167
     },
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true
-    },
     replyTo: {
         type: Schema.Types.ObjectId, 
         ref: "Yadda", 

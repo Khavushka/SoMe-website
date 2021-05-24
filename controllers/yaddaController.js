@@ -6,6 +6,7 @@ const yaddaSchema = require('../models/yaddaSchema')
 const fs = require('fs');
 const formidable = require('formidable');
 
+/*
 // Til Hashtag
 const hashTag = function(yaddas){
     const regex = /(\#)(\w+)/g;
@@ -35,7 +36,7 @@ const linkifyHandles = function(yaddas){            // niels kalder brugernavn h
         yaddas[i].bywhom = repltxt1;
     }
 }
-
+*/
 exports.getWithHashtag = async function (req, res){
     let query = {}; //til database
     let subtitle = ' ';
@@ -57,8 +58,8 @@ exports.getWithHashtag = async function (req, res){
         };
     }
     let yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
-    linkifyHashes(yaddas);
-    linkifyHandles(yaddas);
+    //linkifyHashes(yaddas);
+    //linkifyHandles(yaddas);
     console.log(yaddas);
     return yaddas;
 }
@@ -104,6 +105,7 @@ exports.postYadda = async function(req, res) {
         replyTo: yaddareply
     });
     if (yadda && yadda.image) {
+
         yadda.image.data = await fs.readFileSync(files.image.path) // read uploaded image
         yadda.image.contentType = files.image.type;
     //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
