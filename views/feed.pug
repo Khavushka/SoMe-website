@@ -38,10 +38,10 @@ block content
                                     p.comment-time-stamp Posted by #{reply.bywhom} #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
                                         a(href="/replyto/" + reply.id) 
                                             button(class="fa fa-reply")
-                                    each replyreply in yaddas
-                                        if (replyreply.replyTo == reply.id)
-                                            a(href="/readmore/" + reply.id) 
-                                                button(class="") Read more
+                                        each replyreply in yaddas
+                                            if (replyreply.replyTo == reply.id)
+                                                a(href="/readmore/" + reply.id) 
+                                                    button(class="") Read more
 
             aside.containt
                     each followee in follows
