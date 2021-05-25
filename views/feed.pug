@@ -20,7 +20,7 @@ block content
                         .comment-initial
                             .comment-avatar-container 
                                 img.comment-avatar(src="/users/getimage/" + yadda.bywhom) 
-                            p.comment-text #{yadda.content}
+                            p.comment-text !{yadda.content}
                                 if (yadda.image.data.length > 0)
                                     img.delimg(src="/getimage/" + yadda.id)
                                 p.comment-time-stamp Posted by #{yadda.bywhom} #{yadda.timestamp.getHours()}:#{yadda.timestamp.getMinutes()} #{yadda.timestamp.getDate()}/#{yadda.timestamp.getMonth()}
@@ -32,7 +32,7 @@ block content
                                 .comment-response
                                     .comment-avatar-container
                                         img.comment-avatar(src="/users/getimage/" + reply.bywhom)
-                                    p.comment-text #{reply.content} 
+                                    p.comment-text !{reply.content} 
                                     if (reply.image.data.length > 0)
                                         img.delimg(src="/getimage/" + reply.id)
                                     p.comment-time-stamp Posted by #{reply.bywhom} #{reply.timestamp.getHours()}:#{reply.timestamp.getMinutes()} #{reply.timestamp.getDate()}/#{reply.timestamp.getMonth()}
