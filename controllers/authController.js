@@ -50,7 +50,7 @@ exports.postRegister = function (req, res) {
     let user = userSchema.findOne({ uid: uid })
             .then( async function (user) { // tjek om async
               if (user) {
-                errors.push({ msg: 'Email already exists' });
+                errors.push({ msg: 'Incorrect user or password' });
                 res.render('register', {
                     errors,
                     name,

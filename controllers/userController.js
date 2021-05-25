@@ -36,18 +36,6 @@ exports.getUsers = async function (req, res) {
   }
   let users = await userSchema.find({uid: {$nin: followsArr}}); //det array vi har lavet bruges i filteret sammen med $nin som betyder "not in"
   return users;
-
-  // let followsArr = [follows.follows]; // Vi bruger array bl.a. for ikke at komme til at slette i db
-  // let usersArr = [users.uid];
-  // followsArr.length === usersArr.length && 
-  // followsArr.every(function (element) {
-  //   if (usersArr.includes(element)) {
-  //     usersArr.slice(element);
-  //   };
-  // });
-  // console.log(usersArr);
-  //  return usersArr;
-    
 }
 
 exports.getFollows = async function (req, res) {
