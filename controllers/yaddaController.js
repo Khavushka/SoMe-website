@@ -38,9 +38,22 @@ const linkifyHandles = function(yaddas){            // niels kalder brugernavn h
 }
 
 exports.getWithHashtag = async function (req, res){
+    let uid = req.user.uid;
+
     let query = {}; //til database
     let subtitle = ' ';
     let yaddareplies = '';
+    if(req.params) {
+        let followers = await followSchema.find({user: uid,});
+        let yaddaids = [uid];
+        for (item in followers) {         
+        yaddaids.push(followers[item].follows); 
+        }
+        query = { //når man trykker på en hashtag
+            bywhom:{$in: yaddaids}
+        };
+
+    }
     if(req.params.hashtag){
         let hashtag = '#' + req.params.hashtag;
         let regex = new RegExp(hashtag, "i");

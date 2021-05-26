@@ -167,7 +167,6 @@ nav.main-menu li.active > a,
 /* ----------------TIl NEON TEXT PÅ FORSIDEN----------------- */
 
 .neonText {
-  color: rgb(255, 255, 255);
   text-shadow:
       0 0 7px rgb(93, 218, 170),
       0 0 10px #fff,
@@ -287,7 +286,7 @@ aside input::placeholder {
 
 
 .delimg{
-  height: 100px;
+  height: 150px;
   padding-top:20px;
   padding-left: 140px;
   padding-bottom: 40px;
