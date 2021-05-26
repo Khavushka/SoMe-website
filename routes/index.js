@@ -127,7 +127,11 @@ router.post('/yaddaForm/:yadda', ensureAuthenticated, async function(req, res) {
 
 //Dark/Light dashboard mode 
 router.get('/dashboard', ensureAuthenticated, async function(req, res) {
-    res.render('dashboard');
+    let user = req.user ? req.user.uid: null;
+    res.render('dashboard', {
+    title: 'Dashboard',
+    user: user
+    });
 });
 
 //Til at vise billedet frem på yaddas

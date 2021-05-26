@@ -2,6 +2,7 @@ extends layout
 
 block content
     main
+        h1 #{title}
         h2.tilMode Toggle Dark/Light mode 
             p Click the button to toggle between dark and light mode.
             button#moon(onclick="toggleTheme('dark')" class="fa fa-moon-o")
