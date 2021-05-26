@@ -43,8 +43,8 @@ exports.getWithHashtag = async function (req, res){
     let query = {}; //til database
     let subtitle = ' ';
     let yaddareplies = '';
-    if(req.params) {
-        let followers = await followSchema.find({user: uid,});
+    let followers = await followSchema.find({user: uid});
+    if(followers.length > 0) {
         let yaddaids = [uid];
         for (item in followers) {         
         yaddaids.push(followers[item].follows); 
