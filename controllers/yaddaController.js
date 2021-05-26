@@ -52,7 +52,6 @@ exports.getWithHashtag = async function (req, res){
 
     if(req.params.replies){
         let replies = req.params.replies;
-        console.log(replies);
         let replyreply = await yaddaSchema.find({'replyTo': replies});
         query = {
         $or: [{'_id': replies}, {'replyTo': replies}, {'replyTo': replyreply}] // Her bruger vi $or til at vælge den kan have flere conditions og altså ikke skal have de to conditions opfyldt. Den tager det ene eller det andet
