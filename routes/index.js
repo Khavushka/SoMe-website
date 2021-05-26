@@ -8,20 +8,19 @@ const { ensureAuthenticated } = require('../config/auth');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    let user = req.user ? req.user.uid : null; // ? er if for det foran ?
+    let user = req.user ? req.user.uid : null; 
     res.render('index', {
         title: 'Frontpage',
         user: user
     });
 });
 // Feed/
-router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+router.get('/feed', ensureAuthenticated, async function(req, res, next) { 
+    let user = req.user ? req.user.uid: null; 
     let uid = req.user.uid;
     let users = await userController.getUsers(req, res);
     let follows = await userController.getFollows(req, res);
     let yaddas = await yaddaController.getWithHashtag(req, res);
-    let yaddareplies = await yaddaController.getReplies(req, yaddas);
     res.render('feed', {
         title: 'The feed',
         user: user,
@@ -32,8 +31,8 @@ router.get('/feed', ensureAuthenticated, async function(req, res, next) { //ensu
 });
 
 // feed med hashtags
-router.get('/feed/:hashtag', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+router.get('/feed/:hashtag', ensureAuthenticated, async function(req, res, next) { 
+    let user = req.user ? req.user.uid: null; 
     let uid = req.user.uid;
     let hashtag = '#' + req.params.hashtag;
     let users = await userController.getUsers(req, res);
@@ -49,8 +48,8 @@ router.get('/feed/:hashtag', ensureAuthenticated, async function(req, res, next)
 });
 
 // til at vise mere yaddas
-router.get('/readmore/:replies', ensureAuthenticated, async function(req, res, next) { //ensureAuthenticated sikrer, at man er logged ind
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+router.get('/readmore/:replies', ensureAuthenticated, async function(req, res, next) { 
+    let user = req.user ? req.user.uid: null; 
     let uid = req.user.uid;
     let replies = req.params.replies;
     let users = await userController.getUsers(req, res);
@@ -95,7 +94,7 @@ router.get('/yaddaForm/:uid', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null;
     let users = await userController.getUsers(req, res);
     let uid = req.params.uid;
-    let friend = await yaddaController.gotoYaddaform(req, res); // friend fordi at vi snakker om en vi sender besked til. SÅ derfor ikke follow
+    let friend = await yaddaController.gotoYaddaform(req, res); 
     res.render('yaddaForm', {
         users,
         friend,
@@ -111,11 +110,9 @@ router.post('/yaddaForm', ensureAuthenticated, async function(req, res) {
 });
 
 //Reply
-//links er get request
 router.get('/replyto/:yadda', ensureAuthenticated, async function(req, res) {
     let user = req.user ? req.user.uid: null;
     let yadda = req.params.yadda;
-    //let yaddareplies = await yaddaController.replyTo(req, res);
     res.redirect('/yaddaForm/' + yadda);
 });
 

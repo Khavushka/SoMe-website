@@ -15,7 +15,6 @@ block content
         section.comments-section
             //- Yadda posts og replies
             each yadda in yaddas
-                //- Hvis replyTo har samme værdi og er samme type som null, skriv en feedBesked
                 if (yadda.replyTo === null || yadda.id == replies)
                         .comment-initial
                             .comment-avatar-container 

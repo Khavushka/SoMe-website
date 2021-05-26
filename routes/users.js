@@ -48,7 +48,7 @@ router.get('/unfollow/:uid', ensureAuthenticated, function(req, res, next) {
 
 //yaddaPeople som viser follows
 router.get('/showsfollows', ensureAuthenticated, async function(req, res) {
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let user = req.user ? req.user.uid: null; 
     let uid = req.user.uid;
     let showsfollows = true;
     let users = await userController.getUsers(req, res);
@@ -65,13 +65,11 @@ router.get('/showsfollows', ensureAuthenticated, async function(req, res) {
 //yaddaPeople som viser andre end follows
 
 router.get('/showsall', ensureAuthenticated, async function(req, res) {
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let user = req.user ? req.user.uid: null; 
     let uid = req.user.uid;
     let showsfollows = false;
     let follows = await userController.getFollows(req, res);
     let users = await userController.getUsers(req, res);
-    //der skal være en form for krydsreference mellem funktionerne sådan at vi ikke 
-    //har brugere med i users som vi allerede har i follows
     res.render('yaddaPeople', {
         title: 'Some yaddapeople you might know',
         showsfollows,
@@ -81,18 +79,14 @@ router.get('/showsall', ensureAuthenticated, async function(req, res) {
     });
 });
 
-//router til image
-
 // router til lookup user
 router.get('/lookup/:userId', ensureAuthenticated, async function(req, res) {
     let userid = req.params.userId;
-    let user = req.user ? req.user.uid: null; // ? er if for det foran ?
+    let user = req.user ? req.user.uid: null;
     let uid = req.user.uid;
     let showsfollows = false;
     let follows = await userController.getFollows(req, res);
     let users = await userController.getUsers(req, res);
-    //der skal være en form for krydsreference mellem funktionerne sådan at vi ikke 
-    //har brugere med i users som vi allerede har i follows
     res.render('yaddaPeople', {
         title: 'Some yaddapeople you might know',
         showsfollows,
@@ -104,20 +98,3 @@ router.get('/lookup/:userId', ensureAuthenticated, async function(req, res) {
 
 
 module.exports = router;
-
-
-// /* follow på aside */
-// router.get('/feed/follow/:uid', ensureAuthenticated, function(req, res, next) {
-//     var uid = req.user.uid;
-//     var follows = req.params.uid;
-//     userController.follow(req, res, next);
-//     res.redirect('/feed');
-// });
-
-// /* unfollow på aside */
-// router.get('/unfollow/:uid', ensureAuthenticated, function(req, res, next) {
-//     var uid = req.user.uid;
-//     var follows = req.params.uid;
-//     userController.follow(req, res, next);
-//     res.redirect('')
-// });

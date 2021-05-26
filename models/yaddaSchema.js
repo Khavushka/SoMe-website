@@ -25,6 +25,5 @@ const yaddaSchema = mongoose.Schema({
     }
 });
 
-//var User  = mongoose.model('User', userSchema);
 
 module.exports = mongoose.model('Yadda', yaddaSchema);

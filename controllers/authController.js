@@ -105,7 +105,6 @@ exports.verify = function (req, res) {
                 res.redirect('/users/login');
              });
              } else {
-           //console.log('The token was wrong! Reject the user. token should be: ' + user.verify_token);
             req.flash('error', 'The token was wrong!');
             res.redirect('/users/login');
              }

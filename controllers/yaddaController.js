@@ -61,7 +61,6 @@ exports.getWithHashtag = async function (req, res){
     let yaddas = await yaddaSchema.find(query).sort({timestamp: -1});//til at sortere oplæg
     linkifyHashes(yaddas);
     linkifyHandles(yaddas);
-    console.log(yaddas);
     return yaddas;
 }
 
@@ -109,7 +108,6 @@ exports.postYadda = async function(req, res) {
 
         yadda.image.data = await fs.readFileSync(files.image.path) // read uploaded image
         yadda.image.contentType = files.image.type;
-    //måske {runValidators: true}, som option til save() for schema validering? Men hvor skal den stå?
     }
         yadda.save(function (err) {
             if (err) {
@@ -154,31 +152,3 @@ exports.getReplies = async function(req, yaddas){
     
 }
 
-
-
-
-/*yaddas.forEach(function(item.id) {
-    let yaddareplies = await yaddaSchema.find({
-        replyTo: id
-    });
-    console.log(yaddareplies);
-    return yaddareplies;
-   }
-});*/
-
-//     for (item in yaddas[item.id]) {
-        
-//     let yaddareplies = await yaddaSchema.find({
-//         replyTo: id
-//     });
-//     console.log(yaddareplies);
-//     return yaddareplies;
-//    }
-
- /*let yaddareplies = async function myfunction(item) {
-        await yaddaSchema.find({replyTo: item});
-    }
-    yaddaids.forEach(myfunction);
-
-    console.log(yaddareplies);
-    return yaddareplies;*/
